@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   const images = {
@@ -94,14 +95,17 @@ const AboutUs = () => {
             transition={{ duration: 0.5, delay: 1.2 }}
             className="flex justify-center md:justify-start"
           >
-            <button className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out">
+            <Link
+              to="/#appointment"
+              className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
+            >
               <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
                 Book Appointment
               </span>
               <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
                 Book Appointment
               </span>
-            </button>
+            </Link>
           </motion.div>
         </div>
       </div>

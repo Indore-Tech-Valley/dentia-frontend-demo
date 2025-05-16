@@ -6,6 +6,8 @@ import { PiPersonArmsSpreadLight } from "react-icons/pi";
 import { RiToothLine } from "react-icons/ri";
 import { Plus } from 'lucide-react'; // Make sure lucide-react is installed
 import { Link } from 'react-router-dom';
+import { FaPlus } from "react-icons/fa"; // Optional for + ico
+
 
 
 
@@ -39,7 +41,7 @@ export default function OurServices () {
       <div className="text-center mb-14 px-6 mx-auto">
         <h2 className="text-3xl text-blue-600 font-semibold mb-2 uppercase lg:text-center text-left">Our Services</h2>
         <h3 className="text-2xl font-bold text-gray-900 mb-4 lg:text-center text-left">Complete Care for Every Smile</h3>
-        <p className="text-gray-500 max-w-xl mx-auto text-lg lg:text-center text-left">
+        <p className="text-gray-500 max-w-xl lg:mx-auto text-lg lg:text-center text-left">
           From routine cleanings to advanced restorations, we provide personalized dental solutions for patients of all ages.
         </p>
       </div>
@@ -53,14 +55,12 @@ export default function OurServices () {
             {service.icon}
             <h4 className="font-semibold text-xl mt-6 mb-3 ">{service.title}</h4>
             <p className="text-gray-500 text-base  leading-relaxed">{service.description}</p>
-            <Link to="/" className="group relative inline-flex items-center">
-  <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center transition-all duration-300 group-hover:w-32 group-hover:rounded-lg">
-    <span className="text-2xl transition-opacity duration-200 group-hover:opacity-0">+</span>
-    <span className="absolute opacity-0 group-hover:opacity-100 text-sm transition-opacity duration-300 ml-14 whitespace-nowrap">
-      Read more
-    </span>
-  </div>
-</Link>
+             <button className="mt-10 group relative flex items-center border border-slate-300 rounded-full bg-white text-blue-900 overflow-hidden transition-all duration-300 pl-4 pr-4 h-12 w-12 hover:w-40">
+      <FaPlus className="text-blue-900 z-10" />
+      <span className="absolute left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-semibold">
+        Read more
+      </span>
+    </button>
 
           </div>
         ))}

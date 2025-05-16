@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import Banner1 from '../Banners/Banner1/Banner1'
 import Banner2 from '../Banners/Banner2/Banner2'
 import Appointment from '../Appointment/Appointment'
@@ -8,21 +10,42 @@ import States from '../States/States'
 import Faqs from '../Faqs/Faqs'
 import Testimonial from '../Testimonial/Testimonial'
 import ReadyToBook from '../ReadyTOBook/ReadyToBook'
+import Feedback from '../Feedback.jsx/Feedback'
+
 
 const Homepage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === '#appointment') {
+      const element = document.getElementById('appointment');
+      if (element) {
+        // Smooth scroll to Appointment section
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   return (
     <div className=''>
-    <Banner2/>
-    <ContactInfo/>
-    <Banner1/>
-    <Appointment/>
-    <OurServices/>
-    <States/>
-    <Faqs/>
-    <Testimonial/>
-    <ReadyToBook/>
+      <Banner2 />
+       <Banner1 />
+      <ContactInfo />
+     
+      
+      {/* Appointment with id */}
+      <div id="appointment">
+        <Appointment />
+      </div>
+
+      <OurServices />
+      <States />
+      <Faqs />
+      <Testimonial />
+      <ReadyToBook />
+       <Feedback/>
     </div>
   )
 }
 
-export default Homepage
+export default Homepage;

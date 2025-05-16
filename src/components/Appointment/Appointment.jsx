@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Appointment = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 lg:py-24 py-12">
+    <section className="max-w-7xl mx-auto px-6 lg:py-24 py-12">
       <div className="md:flex md:items-start md:gap-8 ">
         {/* Left: Form */}
         <div className="md:w-1/2 bg-white rounded-2xl p-6 shadow">
@@ -22,7 +22,7 @@ const Appointment = () => {
           </p>
 
           <form className="space-y-4">
-            <select className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm ">
+            <select className="w-full border border-gray-300 rounded-md px-4 py-3">
               <option>Select Service</option>
               <option>Cleaning</option>
               <option>Root Canal</option>
@@ -31,10 +31,10 @@ const Appointment = () => {
             <div className="flex gap-4">
               <input
                 type="date"
-                className="w-1/2 border border-gray-300 rounded-md px-4 py-3 text-sm"
+                className="w-1/2 border border-gray-300 rounded-md px-4 py-3 "
                 defaultValue={new Date().toISOString().split("T")[0]}
               />
-              <select className="w-1/2 border border-gray-300 rounded-md px-4 py-3 text-sm">
+              <select className="w-1/2 border border-gray-300 rounded-md px-4 py-3">
                 <option>Select Time</option>
                 <option>10:00 AM</option>
                 <option>12:30 PM</option>
@@ -45,24 +45,24 @@ const Appointment = () => {
               <input
                 type="text"
                 placeholder="Name"
-                className="flex-1 min-w-0 border border-gray-300 rounded-md px-4 py-3 text-sm"
+                className="flex-1 min-w-0 border border-gray-300 rounded-md px-4 py-3 "
               />
               <input
                 type="email"
                 placeholder="Email"
-                className="flex-1 min-w-0 border border-gray-300 rounded-md px-4 py-3 text-sm"
+                className="flex-1 min-w-0 border border-gray-300 rounded-md px-4 py-3 "
               />
               <input
                 type="tel"
                 placeholder="Phone"
-                className="flex-1 min-w-0 border border-gray-300 rounded-md px-4 py-3 text-sm"
+                className="flex-1 min-w-0 border border-gray-300 rounded-md px-4 py-3"
               />
             </div>
 
             <textarea
               rows="3"
               placeholder="Message"
-              className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 "
             ></textarea>
 
             <Link

@@ -12,7 +12,7 @@ const stats = [
 const States = () => {
   return (
     <div className="bg-[#000C67] py-12 lg:py-24 text-white">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-6 gap-8 text-center">
+      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 px-6 gap-8 text-center">
         {stats.map((stat, index) => (
           <motion.div
             key={index}

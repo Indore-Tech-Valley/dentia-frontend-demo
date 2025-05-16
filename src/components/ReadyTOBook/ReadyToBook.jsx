@@ -5,8 +5,8 @@ import React from 'react'
 const ReadyToBook = () => {
   return (
     <div>
-      <div className="bg-blue-600 py-10 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-white">
+      <div className="bg-blue-600 py-10">
+      <div className=" px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-white">
         {/* Left Text */}
         <h2 className="text-2xl md:text-3xl font-semibold text-center md:text-left mb-4 md:mb-0">
           Ready to book your dental care session?

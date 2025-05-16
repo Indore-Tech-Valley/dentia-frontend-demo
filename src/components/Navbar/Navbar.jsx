@@ -56,15 +56,15 @@ const Navbar = () => {
         scrolled || isMobile ? 'bg-white shadow-md' : 'bg-transparent'
       } ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}
     >
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between ">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="w-36 h-8 text-white"  />
-         
-        </div>
+        <Link to="/" className="flex items-center gap-2">
+      <img src={logo} alt="logo" className="w-36 h-8 text-white" />
+    </Link>
         {/* Desktop Nav */}
        <nav className={`${
   scrolled || isMobile ? 'bg-white text-black' : 'text-white bg-transparent'
+  // scrolled || isMobile ? 'bg-white text-black' : 'text-black bg-transparent'
 } hidden md:flex gap-8 text-md font-medium text-slate-800`}>
   <Link to="/" className="relative group">
     <span className="transition-colors duration-300">Home</span>
@@ -93,7 +93,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
 
 <Link
-  to="/appointment"
+  to="/#appointment"
   className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
 >
   {/* Default Text */}
@@ -128,8 +128,7 @@ const Navbar = () => {
           <Link to="/" className="block py-2">Home</Link>
           <Link to="/services" className="block py-2">Services</Link>
           <Link to="/dentists" className="block py-2">Dentists</Link>
-          <Link to="/pages" className="block py-2">Pages</Link>
-          <Link to="/blog" className="block py-2">Blog</Link>
+          <Link to="/events" className="block py-2">Events</Link>
            <Link to="/about">About Us</Link>
           <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 text-sm">
             Book Appointment

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 
 const images = [
   'https://fermeliadental.com/wp-content/uploads/2019/05/benefits-of-regular-dental-visits.jpeg',
@@ -37,28 +37,38 @@ const Banner2 = () => {
               Elevating Smiles with <br /> Expert Care and a <br /> Gentle Touch
             </h1>
 
-              <button className="text-md mt-6 relative group text-white font-semibold px-6 py-3 rounded  shadow overflow-hidden h-[48px] min-w-[180px]">
+            <Link
+              to="/#appointment"
+              className="text-md mt-6 relative group text-white font-semibold px-6 py-3 rounded shadow overflow-hidden h-[48px] min-w-[180px] inline-flex items-center justify-center no-underline"
+              style={{ textDecoration: 'none' }}
+            >
               <span className="border rounded-lg bg-transparent absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
                 Book Appointment
               </span>
               <span className="bg-[#001F5B] absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
                 Book Appointment
               </span>
-            </button>
+            </Link>
 
-            <div className="flex flex-col md:flex-row mt-4 gap-2 text-md text-white">
-              <span className='ml-2'>Google Rating</span>
-              <span>
-                <span className="ml-2 font-bold">5.0</span>
-                <span className="ml-2 text-yellow-400">★★★★★</span>
-              </span>
-              <span className="ml-2 text-lg">Based on 23k Reviews</span>
-            </div>
+           <a
+  href="https://g.co/kgs/UNBZRpR" // Replace with actual Google reviews link
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block"
+>
+  <div className="flex flex-col md:flex-row mt-4 gap-2 text-md text-white  cursor-pointer">
+    <span className="ml-2">Google Rating</span>
+    <span>
+      <span className="ml-2 font-bold">5.0</span>
+      <span className="ml-2 text-yellow-400">★★★★★</span>
+    </span>
+    <span className="ml-2 text-lg">Based on 23k Reviews</span>
+  </div>
+</a>
+
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 };

@@ -32,7 +32,7 @@ const DentalTeam = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className=" text-blue-600 font-semibold text-sm sm:text-base mb-2"
+            className=" text-blue-600 font-semibold text-sm sm:text-base mb-2 lg:text-center text-left"
           >
             Meet our dental team
           </motion.p>
@@ -62,7 +62,7 @@ const DentalTeam = () => {
           {doctors.map((doctor, index) => (
             <motion.div
               key={index}
-              className="relative rounded-xl overflow-hidden shadow-md group w-[270px] h-[380px] mx-auto"
+              className="relative rounded-xl overflow-hidden shadow-md group w-full h-full mx-auto"
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 * index }} // Stagger the animation

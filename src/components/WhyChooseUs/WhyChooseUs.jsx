@@ -10,7 +10,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="bg-white py-12  sm:px-8 lg:px-24 ">
+    <section className="bg-white py-12  px lg:py-24 ">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 px-6">
         <motion.div
           className="w-full lg:w-1/2 flex flex-col space-y-6"

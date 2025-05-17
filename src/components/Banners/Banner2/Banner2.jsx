@@ -20,7 +20,7 @@ const Banner2 = () => {
   return (
     <div className="w-full ">
       {/* Banner Section */}
-      <div className="relative h-screen overflow-hidden">
+      <div className="relative h-screen overflow-hidden max-h-[786px]">
         {images.map((image, index) => (
           <div
             key={index}

@@ -11,30 +11,31 @@ const AboutUs = () => {
   };
 
   return (
-    <section className="w-full bg-white py-12 mt-12 lg:py-24 px-4 sm:px-6 lg:px-20">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-10 items-center md:items-start">
+    <section className="w-full bg-white py-12 mt-12 lg:py-24 ">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 items-center lg:items-start px-6">
         {/* Left Section - Images */}
-        <div className="flex flex-wrap lg:mb-10 justify-center md:justify-start gap-6 flex-1 px-6">
-          <motion.img
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            src={images.dentist1}
-            alt="Dentist smiling"
-            className="w-full max-w-[250px] lg:mt-10 sm:max-w-[280px] md:max-w-[240px] h-[350px] object-cover rounded-2xl shadow-md"
-          />
-          <motion.img
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            src={images.dentist2}
-            alt="Dentist with patient"
-            className="w-full max-w-[250px] sm:max-w-[280px] md:max-w-[240px] h-[350px] object-cover rounded-2xl shadow-md"
-          />
-        </div>
+       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:mb-10 flex-1 justify-center lg:justify-start">
+  <motion.img
+    initial={{ scale: 0.8, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.6 }}
+    src={images.dentist1}
+    alt="Dentist smiling"
+    className="w-full lg:mt-10  h-[400px] object-cover rounded-2xl shadow-md"
+  />
+  <motion.img
+    initial={{ scale: 0.8, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.6, delay: 0.2 }}
+    src={images.dentist2}
+    alt="Dentist with patient"
+    className="w-full lg:mb-10 h-[400px] object-cover rounded-2xl shadow-md"
+  />
+</div>
+
 
         {/* Right Section - Text */}
-        <div className="flex-1 md:text-left px-2">
+        <div className="flex-1 md:text-left ">
           <motion.p
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

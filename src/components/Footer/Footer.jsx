@@ -5,8 +5,8 @@ import logo from '../Navbar/Logo/logo-white.webp';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0c1d36] text-white px-6 md:px-20 py-12">
-      <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+    <footer className="bg-[#0c1d36] text-white py-12">
+      <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 px-6">
         {/* Logo & Description */}
         <div>
            <div className="flex items-center gap-2">
@@ -116,7 +116,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Footer */}
-      <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-[15px] text-gray-400">
+      <div className="border-t max-w-7xl mx-auto border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-[15px] text-gray-400">
         <p className="text-center">Copyright 2025 – Dentia by Designesia</p>
         <div className="flex space-x-4 mt-2 md:mt-0">
           <Link to="/termsConditions" className="hover:text-white">

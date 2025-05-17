@@ -7,13 +7,13 @@ const Banner1 = () => {
 
         {/* Left Text Content */}
         <div className="lg:w-[65%] space-y-4 lg:text-left">
-          <h4 className="text-blue-600 font-semibold text-base lg:text-lg">
+          <h4 className="text-blue-600 font-semibold text-sm sm:text-base">
             Welcome to Dentia
           </h4>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight tracking-tight">
             Exceptional <span className="text-blue-500">Dental Care</span>
           </h1>
-          <p className="text-gray-600 text-lg lg:pt-4 max-w-lg lg:mx-0">
+          <p className=" lg:pt-4 max-w-lg lg:mx-0      text-gray-500 text-base sm:text-lg">
             We offer high-quality dental care tailored for the whole family. From routine checkups to advanced treatments, our compassionate team ensures your smile stays healthy and confident.
           </p>
 

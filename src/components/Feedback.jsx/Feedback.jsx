@@ -6,7 +6,7 @@ const Feedback = () => {
       {/* Left side form */}
       {/* Left side form */}
       <div className="md:w-1/2 bg-white rounded-lg shadow-lg p-4 flex flex-col justify-center">
-        <h2 className="text-3xl font-bold mb-8 text-gray-900">Send Us Your Feedback</h2>
+        <h2 className="mb-8  text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">Send Us Your Feedback</h2>
         <form className="flex flex-col gap-2">
           <label className="flex flex-col text-gray-700 font-semibold">
             Name

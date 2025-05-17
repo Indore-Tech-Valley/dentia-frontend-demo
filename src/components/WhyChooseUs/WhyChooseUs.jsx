@@ -20,15 +20,15 @@ const WhyChooseUs = () => {
           viewport={{ once: true }}
         >
           <div>
-            <h4 className="text-blue-600 font-semibold mb-2 text-3xl">Why Choose Our Dental Care</h4>
+            <h4 className="     text-blue-600 font-semibold text-sm sm:text-base mb-2">Why Choose Our Dental Care</h4>
             <motion.h2
-              className="text-2xl font-bold text-gray-900 leading-tight mb-4"
+              className="mb-4     text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight"
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Exceptional Service With a <br className="hidden sm:block " /> Personal Touch
+              Exceptional Service With a Personal Touch
             </motion.h2>
             <motion.p
               className="text-gray-500 text-base sm:text-lg"

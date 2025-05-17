@@ -39,8 +39,8 @@ export default function OurServices () {
   return (
     <section className="bg-blue-50 lg:py-24 py-12">
       <div className="text-center mb-14 px-6 mx-auto">
-        <h2 className="text-3xl text-blue-600 font-semibold mb-2 uppercase lg:text-center text-left">Our Services</h2>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4 lg:text-center text-left">Complete Care for Every Smile</h3>
+        <h2 className=" uppercase lg:text-center text-left   text-blue-600 font-semibold text-sm sm:text-base mb-2">Our Services</h2>
+        <h3 className=" mb-4 lg:text-center text-left    text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">Complete Care for Every Smile</h3>
         <p className="text-gray-500 max-w-xl lg:mx-auto text-lg lg:text-center text-left">
           From routine cleanings to advanced restorations, we provide personalized dental solutions for patients of all ages.
         </p>
@@ -54,7 +54,7 @@ export default function OurServices () {
           >
             {service.icon}
             <h4 className="font-semibold text-xl mt-6 mb-3 ">{service.title}</h4>
-            <p className="text-gray-500 text-base  leading-relaxed">{service.description}</p>
+            <p className=" leading-relaxed  text-gray-500 text-base sm:text-lg">{service.description}</p>
              <button className="mt-10 group relative flex items-center border border-slate-300 rounded-full bg-white text-blue-900 overflow-hidden transition-all duration-300 pl-4 pr-4 h-12 w-12 hover:w-40">
       <FaPlus className="text-blue-900 z-10" />
       <span className="absolute left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-semibold">

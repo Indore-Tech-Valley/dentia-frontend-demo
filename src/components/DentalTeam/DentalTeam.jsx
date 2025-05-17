@@ -28,8 +28,17 @@ const DentalTeam = () => {
   return (
     <section className="bg-[#f3f6fd] py-12 lg:py-24 ">
       <div className="max-w-7xl mx-auto text-center px-6">
+<motion.p
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className=" text-blue-600 font-semibold text-sm sm:text-base mb-2"
+          >
+            Meet our dental team
+          </motion.p>
+
         <motion.h2
-          className="text-4xl font-bold text-blue-900 mb-4 lg:text-center text-left "
+          className=" mb-4 lg:text-center text-left     text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight "
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
@@ -39,7 +48,7 @@ const DentalTeam = () => {
         </motion.h2>
 
         <motion.p
-          className="text-gray-500 mb-12 lg:text-center text-left "
+          className=" mb-12 lg:text-center text-left      text-gray-500 text-base sm:text-lg "
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}

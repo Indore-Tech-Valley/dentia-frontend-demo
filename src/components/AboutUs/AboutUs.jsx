@@ -39,7 +39,7 @@ const AboutUs = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-3xl text-blue-600 font-semibold mb-2"
+            className=" text-blue-600 font-semibold text-sm sm:text-base mb-2"
           >
             About Us
           </motion.p>
@@ -48,7 +48,7 @@ const AboutUs = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-2xl sm:text-2xl font-bold text-gray-900 mb-4 leading-tight"
+            className=" mb-4       text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight"
           >
             Professionals and <br className="hidden sm:block" />
             Personalized Dental <br className="hidden sm:block" /> Excellence
@@ -58,7 +58,7 @@ const AboutUs = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="text-gray-500 text-base mb-6"
+            className=" mb-6   text-gray-500 text-base sm:text-lg"
           >
             We offer high-quality dental care tailored for the whole family.
             From routine checkups to advanced treatments, our compassionate team

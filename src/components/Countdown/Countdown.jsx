@@ -87,10 +87,12 @@ const Countdown = () => {
       </div>
 
       {/* Location - Improved styling */}
+      <a href="https://maps.app.goo.gl/qmG1HRLptUZtWfeC8" target='blank' className="hover:cursor-pointer">
       <div className="flex items-center justify-center text-white  bg-blue-700 text-sm font-medium py-2 px-3 rounded-lg shadow-inner">
         <HiLocationMarker className="mr-1 text-lg" />
         Dental Clinic, Main Street, NY
       </div>
+      </a>
     </div>
   );
 };

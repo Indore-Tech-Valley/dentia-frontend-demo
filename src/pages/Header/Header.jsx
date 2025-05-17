@@ -17,7 +17,7 @@ const Header = ({ title, image }) => {
 
       {/* Content */}
       <div className="relative z-10 px-4">
-        <h2 className="text-4xl font-bold">{title}</h2>
+        <h2 className=" sm:text-4xl lg:text-5xl font-bold leading-tight">{title}</h2>
       </div>
     </div>
   );

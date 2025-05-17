@@ -32,8 +32,11 @@ const UpcomingEvents = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-12">
-      <h2 className="text-3xl mb-8 text-blue-600 font-semibold">Upcoming Events</h2>
+    <section className="max-w-7xl mx-auto px-6 py-12 lg:py-24">
+      <div className="mb-14">
+       <h2 className="mb-2 lg:text-center text-left   text-blue-600 font-semibold text-sm sm:text-base">Upcoming Events</h2>
+        <h3 className=" mb-4 lg:text-center text-left  text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">Complete Care for Every Smile</h3>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {upcomingEventsData.map((event) => (
           <div

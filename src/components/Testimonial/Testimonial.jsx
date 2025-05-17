@@ -56,11 +56,11 @@ const Testimonial = () => {
   return (
     <div className="bg-blue-50 py-12 lg:py-24">
       <div className="max-w-7xl mx-auto px-6 text-center ">
-        <h4 className="text-blue-600 font-semibold text-3xl">Testimonials</h4>
-        <h2 className="text-2xl font-bold text-gray-900 my-4">
+        <h4 className="text-blue-600 font-semibold text-sm sm:text-base">Testimonials</h4>
+        <h2 className="  my-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">
           Our Happy Customers
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className=" max-w-2xl mx-auto text-gray-500 text-base sm:text-lg">
           Join thousands of happy patients who trust us for gentle, expert care and beautiful smiles. Your perfect dental experience starts here!
         </p>
 

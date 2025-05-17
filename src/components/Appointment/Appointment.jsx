@@ -82,7 +82,7 @@ const Appointment = () => {
   </div>
 
   {/* Right: Image */}
-  <div className="md:w-1/2 mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow min-h-[480px]">
+  <div className="md:w-1/2 mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow lg:h-[580px] md:h-[620px] sm:h-full">
     <img
       src="https://images.pexels.com/photos/6812548/pexels-photo-6812548.jpeg"
       alt="Dentist with kid"

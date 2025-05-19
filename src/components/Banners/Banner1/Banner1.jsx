@@ -2,13 +2,13 @@ import React from 'react';
 
 const Banner1 = () => {
   return (
-    <div className="lg:py-24 py-12 bg-gradient-to-r from-blue-50 to-white flex items-center">
-      <div className="max-w-7xl mx-auto px-6 pt-20 lg:pt-2 pb-2 flex flex-col lg:flex-row justify-between w-full gap-5">
+    <div className="bg-gradient-to-r from-blue-50 to-white flex items-center">
+      <div className="max-w-7xl mx-auto px-6  pb-2 flex flex-col lg:flex-row justify-between w-full gap-5 lg:py-24 py-12 ">
 
         {/* Left Text Content */}
         <div className="lg:w-[65%] space-y-4 lg:text-left">
-          <h4 className="text-blue-600 font-semibold text-sm sm:text-base">
-            Welcome to Dentia
+          <h4 className="  text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 text-left">
+            WELCOME TO DENTIA
           </h4>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight tracking-tight">
             Exceptional <span className="text-blue-500">Dental Care</span>

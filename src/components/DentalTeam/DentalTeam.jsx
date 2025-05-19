@@ -32,9 +32,9 @@ const DentalTeam = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className=" text-blue-600 font-semibold text-sm sm:text-base mb-2 lg:text-center text-left"
+            className=" text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 lg:text-center text-left"
           >
-            Meet our dental team
+            MEET OUR DENTAL TEAM
           </motion.p>
 
         <motion.h2

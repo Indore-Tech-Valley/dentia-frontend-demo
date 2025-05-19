@@ -10,14 +10,12 @@ const Header = ({ title, image }) => {
         backgroundPosition: 'center',
       }}
     >
-      {/* Gradient overlay: same as in Banner2 */}
-      <div className="absolute inset-0 bg-indigo-800 bg-opacity-70
-
-" />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-indigo-800 bg-opacity-70" />
 
       {/* Content */}
       <div className="relative z-10 px-4">
-        <h2 className=" sm:text-4xl lg:text-5xl font-bold leading-tight">{title}</h2>
+        <h2 className="text-2xl lg:text-5xl font-bold leading-tight">{title}</h2>
       </div>
     </div>
   );

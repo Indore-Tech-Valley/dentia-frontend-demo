@@ -41,7 +41,7 @@ const Homepage = () => {
       <OurServices />
       <States />
       <Faqs />
-      <Testimonial />
+      {/* <Testimonial /> */}
       <ReadyToBook />
        <Feedback/>
     </div>

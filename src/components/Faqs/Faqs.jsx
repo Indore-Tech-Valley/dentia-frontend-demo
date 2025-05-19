@@ -46,8 +46,8 @@ export default function FAQs() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h4 className="text-blue-600 font-semibold text-sm sm:text-base mb-2">
-            Everything You Need to Know
+          <h4 className=" text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 text-left">
+            EVERYTHING YOU NEED TO KNOW 
           </h4>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">
             Frequently Asked <br className="hidden sm:block" /> Questions

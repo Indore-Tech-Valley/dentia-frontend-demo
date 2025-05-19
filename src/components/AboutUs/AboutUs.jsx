@@ -11,7 +11,7 @@ const AboutUs = () => {
   };
 
   return (
-    <section className="w-full bg-white py-12 mt-12 lg:py-24 ">
+    <section className="w-full bg-white py-12 lg:mt-12 lg:py-24 ">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 items-center lg:items-start px-6">
         {/* Left Section - Images */}
        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:mb-10 flex-1 justify-center lg:justify-start">
@@ -40,9 +40,9 @@ const AboutUs = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className=" text-blue-600 font-semibold text-sm sm:text-base mb-2"
+            className="  text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2  text-left"
           >
-            About Us
+            ABOUT US 
           </motion.p>
 
           <motion.h2

@@ -22,7 +22,7 @@ const States = () => {
             transition={{ duration: 0.6, delay: index * 0.2 }}
           >
             <h2 className="text-3xl font-extrabold">
-              <CountUp end={stat.end} duration={2} />{stat.suffix}
+              <CountUp end={stat.end} duration={3} />{stat.suffix}
             </h2>
             <p className="mt-2 text-sm">{stat.label}</p>
           </motion.div>

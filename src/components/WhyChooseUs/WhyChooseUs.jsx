@@ -20,7 +20,7 @@ const WhyChooseUs = () => {
           viewport={{ once: true }}
         >
           <div>
-            <h4 className="     text-blue-600 font-semibold text-sm sm:text-base mb-2">Why Choose Our Dental Care</h4>
+            <h4 className="text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 text-left">WHY CHOOSE OUR DENTAL CARE</h4>
             <motion.h2
               className="mb-4     text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight"
               initial={{ y: 40, opacity: 0 }}

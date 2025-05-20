@@ -73,7 +73,7 @@ const Services = () => {
             <div
               key={index}
               id={item.id}
-              className={`flex flex-col lg:flex-row items-start gap-10 lg:pt-24 pt-16 ${
+              className={`flex flex-col lg:flex-row items-start gap-10 lg:pt-24 pt-20 ${
                 index % 2 !== 0 ? "lg:flex-row-reverse" : ""
               }`}
             >

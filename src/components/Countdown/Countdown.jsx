@@ -52,7 +52,7 @@ const Countdown = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed right-5 bottom-5 bg-white shadow-xl w-[280px] rounded-2xl p-5 z-50 font-sans border border-blue-500">
+    <div className="fixed right-6 md:right-10 bottom-24 md:bottom-20 bg-white shadow-xl w-[280px] rounded-2xl p-5 z-50 font-sans border border-blue-500">
       <button
         onClick={() => setVisible(false)}
         className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition"

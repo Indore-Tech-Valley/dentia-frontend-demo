@@ -172,7 +172,7 @@ const Footer = () => {
       {/* Bottom Footer */}
       <div className="border-t max-w-7xl mx-auto border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between lg:items-center text-[15px] text-gray-400 px-6">
         <p className="text-left md:text-center">
-          Copyright 2025 – Dentia by Designesia
+          Copyright 2025 – Dentia by Aaryan 
         </p>
         <div className="flex space-x-4 mt-2 md:mt-0">
           <Link to="/termsConditions" className="hover:text-white">

@@ -51,7 +51,8 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ${
-        scrolled || isMobile ? 'bg-white shadow-md' : 'bg-transparent'
+        scrolled || isMobile ? 'bg-white shadow-md ' : 'bg-transparent'
+        // scrolled || isMobile ? 'shadow-md bg-[#000C67]' : 'bg-transparent'
       } ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}
     >
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -124,26 +125,37 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white px-4 pt-4 pb-6 shadow-lg transition-all duration-300">
-          <Link to="/" className="block py-2">
-            Home
-          </Link>
-          <Link to="/services" className="block py-2">
-            Services
-          </Link>
-          <Link to="/dentists" className="block py-2">
-            Dentists
-          </Link>
-          <Link to="/events" className="block py-2">
-            Events
-          </Link>
-          <Link to="/about">About Us</Link>
-          <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 text-sm">
-            Book Appointment
-          </button>
-        </div>
-      )}
+     <div
+  className={`md:hidden  overflow-hidden transition-all duration-500 ease-in-out ${
+    menuOpen ? 'max-h-screen opacity-100 py-6 px-4' : 'max-h-0 opacity-0 py-0 px-4'
+  }`}
+>
+<Link to="/" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+  Home
+</Link>
+<Link to="/services" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+  Services
+</Link>
+<Link to="/dentists" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+  Dentists
+</Link>
+<Link to="/events" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+  Events
+</Link>
+<Link to="/about" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+  About Us
+</Link>
+<Link
+  to="/#appointment"
+  onClick={() => setMenuOpen(false)}
+  className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 text-sm text-center inline-block"
+>
+  Book Appointment
+</Link>
+
+</div>
+
+
     </header>
   );
 };

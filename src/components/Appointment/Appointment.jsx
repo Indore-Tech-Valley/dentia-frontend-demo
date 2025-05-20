@@ -7,7 +7,7 @@ const Appointment = () => {
     <section className="max-w-7xl mx-auto px-6 lg:py-24 py-12">
       <div className="md:flex md:items-start md:gap-8">
         {/* Left: Form */}
-        <div className="md:w-1/2 bg-white rounded-2xl p-6 shadow min-h-[480px] flex flex-col justify-between">
+        <div className="md:w-1/2 bg-white rounded-2xl p-6 shadow min-h-[480px] flex flex-col justify-between lg:h-[698px] md:h-[758px] sm:h-full">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">
@@ -120,7 +120,7 @@ const Appointment = () => {
         </div>
 
         {/* Right: Image */}
-        <div className="md:w-1/2 mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow lg:h-[690px] md:h-[758px] sm:h-full">
+        <div className="md:w-1/2 mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow lg:h-[698px] md:h-[758px] sm:h-full">
           <img
             src="https://images.pexels.com/photos/6812548/pexels-photo-6812548.jpeg"
             alt="Dentist with kid"

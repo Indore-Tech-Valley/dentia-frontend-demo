@@ -11,6 +11,7 @@ import Faqs from '../Faqs/Faqs'
 import Testimonial from '../Testimonial/Testimonial'
 import ReadyToBook from '../ReadyTOBook/ReadyToBook'
 import Feedback from '../Feedback.jsx/Feedback'
+import OurProcess from '../OurProcess/OurProcess'
 
 
 const Homepage = () => {
@@ -27,18 +28,19 @@ const Homepage = () => {
   }, [location]);
 
   return (
-    <div className=''>
+     <div className=''>
       <Banner2 />
        <Banner1 />
       <ContactInfo />
      
+      <OurServices />
+      <OurProcess/>
       
       {/* Appointment with id */}
       <div id="appointment">
         <Appointment />
       </div>
 
-      <OurServices />
       <States />
       <Faqs />
       {/* <Testimonial /> */}

@@ -12,9 +12,10 @@ const AboutPage = () => {
       <Header title={`About Us`} image={`https://kdahweb-static.kokilabenhospital.com/kdah-2019/slider/16672013291400.jpg`}/>
       <AboutUs/>
       <DentalTeam/>
+         <WhyChooseUs/>
       <Testimonial />
 
-      <WhyChooseUs/>
+   
      
     </div>
   )

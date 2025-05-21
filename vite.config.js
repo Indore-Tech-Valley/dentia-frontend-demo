@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-    build: {
+  build: {
     outDir: 'build'  // This changes output folder from dist to build
   },
-  base:'/denti-frontend-demo/'
+  base:'/dentia-frontend-demo/',
+  plugins: [react()],
 })

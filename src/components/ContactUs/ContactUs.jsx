@@ -11,6 +11,7 @@ import {
 import { IoLogoInstagram , IoLocationOutline , IoMailOutline , IoCallOutline   } from "react-icons/io5";
 
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const contactItems = [
   {
@@ -156,21 +157,17 @@ const ContactUs = () => {
       className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none"
     />
   </div>
-
- <button
-            to="/"
-            className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
-          >
-            {/* Default Text */}
-            <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
-              Send Query 
-            </span>
-
-            {/* Hover Text */}
-            <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
-               Send Query 
-            </span>
-          </button>
+<Link
+  to="/appointment"
+  className="relative group block w-full sm:w-auto text-center bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
+>
+  <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
+    Send Query
+  </span>
+  <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
+    Send Query
+  </span>
+</Link>
 </form>
 
         </div>

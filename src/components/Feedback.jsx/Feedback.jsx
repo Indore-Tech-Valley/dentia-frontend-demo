@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 const Feedback = () => {
   return (
@@ -35,22 +37,17 @@ const Feedback = () => {
               className="mt-1 px-4 py-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
           </label>
-<button
-  type="submit"
-  className="relative group bg-blue-600 text-white py-3 rounded-lg font-semibold transition-colors duration-300 hover:bg-[#10244b] overflow-hidden"
+<Link
+  to="/appointment"
+  className="relative group block w-full sm:w-auto text-center bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
 >
-  <div className="relative h-[24px]">
-    {/* Top text slides up and fades out */}
-    <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:-translate-y-full group-hover:opacity-0">
-      Submit Feedback
-    </span>
-
-    {/* Bottom text slides in and fades in */}
-    <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-      Submit Feedback
-    </span>
-  </div>
-</button>
+  <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
+    Send Feedback
+  </span>
+  <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
+    Send Feedback
+  </span>
+</Link>
 
         </form>
       </div>

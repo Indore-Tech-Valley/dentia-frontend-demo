@@ -15,7 +15,8 @@ import { PiPersonArmsSpreadLight } from "react-icons/pi";
 import { RiToothLine } from "react-icons/ri";
 import { MdOutlineShield } from "react-icons/md";
 import { LiaTeethSolid } from "react-icons/lia";
-import logo from "../Navbar/Logo/logo-white.webp";
+import logo from '../Navbar/Logo/WhiteLogo.png';
+
 
 const services = [
   {
@@ -75,7 +76,7 @@ const Footer = () => {
         {/* Logo & Description */}
         <div>
           <div className="flex items-center gap-2">
-            <img src={logo} alt="logo" className="w-36 h-8 text-white mb-5" />
+            <img src={logo} alt="logo" className="w-36 h-9 text-white mb-5" />
           </div>
           <p className="text-gray-300 text-[15px] leading-relaxed ">
             At Dentia, we’re dedicated to providing high-quality, personalized
@@ -172,7 +173,7 @@ const Footer = () => {
       {/* Bottom Footer */}
       <div className="border-t max-w-7xl mx-auto border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between lg:items-center text-[15px] text-gray-400 px-6">
         <p className="text-left md:text-center">
-          Copyright 2025 – Dentia by Aaryan 
+          Copyright 2025 – TrushDental by Indore Tech Valley 
         </p>
         <div className="flex space-x-4 mt-2 md:mt-0">
           <Link to="/termsConditions" className="hover:text-white">

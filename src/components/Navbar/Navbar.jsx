@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Added import for Link
-import WhiteLogo from '../Navbar/Logo/logo-white.webp';
-import BlackLogo from '../Navbar/Logo/logo-black.webp';
+import WhiteLogo from '../Navbar/Logo/WhiteLogo.png';
+import BlackLogo from '../Navbar/Logo/BlackLogo.png';
+
+
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -58,7 +60,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="w-36 h-8 text-white" />
+          <img src={logo} alt="logo" className="w-36 h-9 text-white" />
         </Link>
 
         {/* Desktop Nav */}
@@ -75,7 +77,7 @@ const Navbar = () => {
             <span className="transition-colors duration-300 ">Services</span>
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
           </Link>
-          <Link to="/" className="relative group">
+          <Link to="/about#dentists" className="relative group">
             <span className="transition-colors duration-300 ">Dentists</span>
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
           </Link>
@@ -136,7 +138,7 @@ const Navbar = () => {
 <Link to="/services" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
   Services
 </Link>
-<Link to="/dentists" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+<Link to="/#dentists" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
   Dentists
 </Link>
 <Link to="/events" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">

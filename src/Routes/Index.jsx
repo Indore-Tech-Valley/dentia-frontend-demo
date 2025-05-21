@@ -7,6 +7,8 @@ import Events from '../components/Events/Events';
 import TermsConditions from '../components/TermsConditions/TermsConditions';
 import PrivacyPolicy from '../components/PrivacyPolicy/PrivacyPolicy';
 import ServicePage from '../components/ServicePage/ServicePage';
+import ContactPage from '../components/ContactPage/ContactUsPage';
+
 
 const Index = () => {
   return (
@@ -17,6 +19,7 @@ const Index = () => {
       <Route path="/termsConditions" element={<TermsConditions />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/services" element={<ServicePage/>} />
+      <Route path="/contact" element={<ContactPage/>} />
     </Routes>
   );
 };

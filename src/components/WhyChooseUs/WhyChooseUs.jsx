@@ -122,18 +122,19 @@ const WhyChooseUs = () => {
               />
             </div>
             <motion.div
-              className="h-5/6 md:my-auto "
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-              viewport={{ once: true }}
-            >
-              <img
-                src={images[2]}
-                alt="Dental care 3"
-                className="rounded-lg shadow-md object-cover w-full h-full"
-              />
-            </motion.div>
+  className="sm:h-5/6 h-auto sm:my-auto"
+  initial={{ scale: 0.8, opacity: 0 }}
+  whileInView={{ scale: 1, opacity: 1 }}
+  transition={{ duration: 0.6, delay: 1.2 }}
+  viewport={{ once: true }}
+>
+  <img
+    src={images[2]}
+    alt="Dental care 3"
+    className="rounded-lg shadow-md object-cover w-full h-full sm:h-full h-auto"
+  />
+</motion.div>
+
           </div>
         </motion.div>
       </div>

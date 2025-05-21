@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { LiaToothSolid } from "react-icons/lia";
 import { CiFaceSmile } from "react-icons/ci";
@@ -16,7 +16,6 @@ const services = [
     description:
       "Our general dentistry services include routine exams, cleanings, and fillings, ensuring optimal oral health for every patient.",
     icon: <LiaToothSolid className="text-blue-500 text-5xl" />,
-    
   },
   {
     id: "cosmetic-dentistry",
@@ -55,9 +54,17 @@ const services = [
   },
 ];
 
-export default function OurServices() {
+const OurServices = () => {
+  const navigate = useNavigate();
+
   const handleReadMoreClick = (id) => {
-    window.location.href = `/services#${id}`;
+    navigate(`/services#${id}`);
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
   };
 
   return (
@@ -99,11 +106,7 @@ export default function OurServices() {
             className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition duration-300 flex flex-col h-[420px]"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.4,
-              delay: 0.4,
-              ease: "easeOut",
-            }}
+            transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
             viewport={{ once: true }}
           >
             <div className="flex-grow">
@@ -128,7 +131,6 @@ export default function OurServices() {
               </motion.p>
             </div>
 
-            {/* Simple hover button */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -136,26 +138,23 @@ export default function OurServices() {
               viewport={{ once: true }}
               className="mt-auto pt-6"
             >
-              <Link
-  to={`/services#${service.id}`}
-  onClick={(e) => {
-    e.preventDefault();
-    handleReadMoreClick(service.id);
-  }}
-  className="group relative flex items-center border border-slate-300 rounded-full bg-white text-blue-900 overflow-hidden transition-all duration-500 ease-in-out pl-4 pr-4 h-12 w-12 hover:w-40"
->
-  <FaPlus className="text-blue-900 z-10" />
-  <span className="absolute left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out whitespace-nowrap font-semibold">
-    Read more
-  </span>
-</Link>
-
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleReadMoreClick(service.id);
+                }}
+                className="group relative flex items-center border border-slate-300 rounded-full bg-white text-blue-900 overflow-hidden transition-all duration-500 ease-in-out pl-4 pr-4 h-12 w-12 hover:w-40"
+              >
+                <FaPlus className="text-blue-900 z-10" />
+                <span className="absolute left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out whitespace-nowrap font-semibold">
+                  Read more
+                </span>
+              </button>
             </motion.div>
           </motion.div>
         ))}
       </div>
 
-      {/* View All Services Button */}
       <div className="text-center mt-14">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -178,4 +177,6 @@ export default function OurServices() {
       </div>
     </section>
   );
-}
+};
+
+export default OurServices;

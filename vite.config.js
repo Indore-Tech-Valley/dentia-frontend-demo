@@ -6,5 +6,6 @@ export default defineConfig({
   plugins: [react()],
     build: {
     outDir: 'build'  // This changes output folder from dist to build
-  }
+  },
+  base:'/denti-frontend-demo/'
 })

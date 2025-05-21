@@ -30,7 +30,7 @@ const Homepage = () => {
   return (
      <div className=''>
       <Banner2 />
-       <Banner1 />
+       {/* <Banner1 /> */}
       <ContactInfo />
      
       <OurServices />

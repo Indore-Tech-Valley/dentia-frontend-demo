@@ -10,7 +10,7 @@ import BackToTopButton from './components/BackToTopButton/BackToTopButton';
 
 function App() {
   return (
-    <BrowserRouter basename='/denti-frontend-demo'>
+    <BrowserRouter basename='/dentia-frontend-demo'>
      <ScrollToTop />
     <Navbar/>
     <Index />

@@ -36,19 +36,25 @@ const Banner2 = () => {
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white">
               Elevating Smiles with <br /> Expert Care and a <br /> Gentle Touch
             </h1>
+<Link
+  to="/#appointment"
+  className="text-md mt-6 relative group text-white font-semibold px-6 py-3 rounded shadow overflow-hidden h-[48px] min-w-[180px] inline-flex items-center justify-center no-underline"
+  style={{ textDecoration: 'none' }}
+>
+  {/* Outer layer with border + top text */}
+  <span className="border border-white rounded-lg absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:border-transparent group-hover:bg-[#001F5B]">
+    {/* Text that slides up AND fades out */}
+    <span className="transition-all duration-300 group-hover:-translate-y-full group-hover:opacity-0">
+      Book Appointment
+    </span>
+  </span>
 
-            <Link
-              to="/#appointment"
-              className="text-md mt-6 relative group text-white font-semibold px-6 py-3 rounded shadow overflow-hidden h-[48px] min-w-[180px] inline-flex items-center justify-center no-underline"
-              style={{ textDecoration: 'none' }}
-            >
-              <span className="border hover:border-transparent border border-gray-500 hover:border-transparent rounded-lg bg-transparent absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
-                Book Appointment
-              </span>
-              <span className="bg-[#001F5B] absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
-                Book Appointment
-              </span>
-            </Link>
+  {/* Second text fading + sliding in from below */}
+  <span className="rounded-lg absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 translate-y-full group-hover:translate-y-0 group-hover:opacity-100">
+    Book Appointment
+  </span>
+</Link>
+
 
            <a
   href="https://g.co/kgs/UNBZRpR" // Replace with actual Google reviews link

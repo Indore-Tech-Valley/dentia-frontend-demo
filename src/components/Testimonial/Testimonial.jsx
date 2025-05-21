@@ -13,20 +13,13 @@ const testimonials = [
     quote:
       "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
   },
-  
+
   {
-    name: "Robert L.",
+    name: "Bryan G.",
     role: "Customer",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
     quote:
-      "My family and I have been coming here for years. The service is exceptional, and the team always goes the extra mile to make sure we’re happy and well taken care of.",
-  },
-  {
-    name: "Robert L.",
-    role: "Customer",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
-    quote:
-      "My family and I have been coming here for years. The service is exceptional, and the team always goes the extra mile to make sure we’re happy and well taken care of.",
+      "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
   },
   {
     name: "Bryan G.",
@@ -35,20 +28,33 @@ const testimonials = [
     quote:
       "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
   },
-
   {
-    name: "Robert L.",
+    name: "Bryan G.",
     role: "Customer",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
     quote:
-      "My family and I have been coming here for years. The service is exceptional, and the team always goes the extra mile to make sure we’re happy and well taken care of.",
+      "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
   },
   {
-    name: "Robert L.",
+    name: "Bryan G.",
     role: "Customer",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
     quote:
-      "My family and I have been coming here for years. The service is exceptional, and the team always goes the extra mile to make sure we’re happy and well taken care of.",
+      "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
+  },
+  {
+    name: "Bryan G.",
+    role: "Customer",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    quote:
+      "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
+  },
+  {
+    name: "Bryan G.",
+    role: "Customer",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    quote:
+      "From the moment I walked in, I felt at ease. The staff made me feel like family, and the care I received was exceptional. I’m so happy with my smile—thank you for everything!",
   },
 ];
 
@@ -57,16 +63,17 @@ const Testimonial = () => {
     <div className="bg-blue-50 py-12 lg:py-24">
       <div className="max-w-7xl mx-auto px-6 text-center">
         {/* Heading Section without Animation */}
-        <h4 className="text-sm lg:text-center text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 text-left">
+        <h4 className="text-sm lg:text-center text-left text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 text-left">
           TESTIMONIALS
         </h4>
 
-        <h2 className="my-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">
+        <h2 className="my-4 text-3xl  text-left lg:text-center sm:text-4xl lg:text-5xl font-bold text-[#0a1d42] leading-tight">
           Our Happy Customers
         </h2>
 
-        <p className="max-w-2xl mx-auto text-gray-500 text-base sm:text-lg">
-          Join thousands of happy patients who trust us for gentle, expert care and beautiful smiles. Your perfect dental experience starts here!
+        <p className="max-w-2xl mx-auto text-gray-500 text-base sm:text-lg text-left lg:text-center">
+          Join thousands of happy patients who trust us for gentle, expert care
+          and beautiful smiles. Your perfect dental experience starts here!
         </p>
 
         {/* Swiper Section with Testimonials */}
@@ -97,7 +104,8 @@ const Testimonial = () => {
                     <p className="text-sm text-gray-500">{item.role}</p>
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-blue-50 to-white"></div> {/* Gradient bottom effect */}
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-blue-50 to-white"></div>{" "}
+                {/* Gradient bottom effect */}
               </div>
             </SwiperSlide>
           ))}

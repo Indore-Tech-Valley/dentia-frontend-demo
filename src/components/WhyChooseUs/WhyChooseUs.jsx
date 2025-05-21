@@ -122,7 +122,7 @@ const WhyChooseUs = () => {
               />
             </div>
             <motion.div
-              className="h-5/6 my-auto"
+              className="h-5/6 lg:my-auto my-2"
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.2 }}

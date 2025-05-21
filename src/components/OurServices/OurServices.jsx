@@ -16,6 +16,7 @@ const services = [
     description:
       "Our general dentistry services include routine exams, cleanings, and fillings, ensuring optimal oral health for every patient.",
     icon: <LiaToothSolid className="text-blue-500 text-5xl" />,
+    
   },
   {
     id: "cosmetic-dentistry",
@@ -136,7 +137,7 @@ export default function OurServices() {
               className="mt-auto pt-6"
             >
               <Link
-  to="#"
+  to={`/services#${service.id}`}
   onClick={(e) => {
     e.preventDefault();
     handleReadMoreClick(service.id);

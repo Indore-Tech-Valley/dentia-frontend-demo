@@ -8,33 +8,35 @@ import {
   FiTwitter,
   FiYoutube,
 } from "react-icons/fi";
+import { IoLogoInstagram , IoLocationOutline , IoMailOutline , IoCallOutline   } from "react-icons/io5";
+
 import { motion } from "framer-motion";
 
 const contactItems = [
   {
     id: 1,
-    icon: FiPhone,
+    icon: IoCallOutline ,
     label: "Phone",
     value: "(+123) 456 7890",
     link: "tel:+1234567890",
   },
   {
     id: 2,
-    icon: FiMail,
+    icon: IoMailOutline ,
     label: "Email",
-    value: "contact@trustdental.com",
-    link: "mailto:contact@trustdental.com",
+    value: "@trustdentalclinic.com",
+    link: "mailto:@trustdentalclinic.com",
   },
   {
     id: 3,
-    icon: FiMapPin,
+    icon: IoLocationOutline  ,
     label: "Address",
     value: "123 Smile St, Happy Town, TX",
     link: "https://maps.app.goo.gl/qmG1HRLptUZtWfeC8", // update with real URL if you want
   },
   {
     id: 4,
-    icon: FiInstagram,
+    icon: IoLogoInstagram   ,
     label: "Instagram",
     value: "@trustdentalclinic",
     link: "https://instagram.com/trustdentalclinic",
@@ -106,17 +108,7 @@ const ContactUs = () => {
         <div className="bg-[#f3f6fd] p-8 rounded-xl shadow">
           <form className="space-y-6">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <label htmlFor="email" className="block mb-1 text-gray-700 font-medium">
-        Email
-      </label>
-      <input
-        id="email"
-        type="email"
-        placeholder="Email"
-        className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none"
-      />
-    </div>
+   
     <div>
       <label htmlFor="name" className="block mb-1 text-gray-700 font-medium">
         Name
@@ -125,6 +117,17 @@ const ContactUs = () => {
         id="name"
         type="text"
         placeholder="Name"
+        className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none"
+      />
+    </div>
+     <div>
+      <label htmlFor="email" className="block mb-1 text-gray-700 font-medium">
+        Email
+      </label>
+      <input
+        id="email"
+        type="email"
+        placeholder="Email"
         className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none"
       />
     </div>
@@ -154,17 +157,20 @@ const ContactUs = () => {
     />
   </div>
 
-  <button
-    type="submit"
-    className="relative group bg-[#0a1d42] hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
-  >
-    <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
-      SUBMIT BUTTON
-    </span>
-    <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
-      SUBMIT BUTTON
-    </span>
-  </button>
+ <button
+            to="/"
+            className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
+          >
+            {/* Default Text */}
+            <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
+              Send Query 
+            </span>
+
+            {/* Hover Text */}
+            <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">
+               Send Query 
+            </span>
+          </button>
 </form>
 
         </div>

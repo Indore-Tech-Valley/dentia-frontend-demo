@@ -84,7 +84,10 @@ const UpcomingEvents = () => {
               <h3 className="text-lg font-semibold text-slate-900 mb-2">
                 {event.title}
               </h3>
-              <p className="text-sm text-slate-600">{event.description}</p>
+        <p className="text-gray-500 text-base sm:text-lg">
+  {event.description}
+</p>
+
             </div>
           </motion.div>
         ))}

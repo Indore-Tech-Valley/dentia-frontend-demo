@@ -33,7 +33,7 @@ const contentSections = [
     text: (
       <>
         If you have any questions about our privacy practices, please contact us at{' '}
-        <span className="text-blue-600 font-medium">privacy@yourdentalclinic.com</span>.
+        <span className="text-blue-600 font-medium">@trustdentalclinic</span>.
       </>
     ),
   },

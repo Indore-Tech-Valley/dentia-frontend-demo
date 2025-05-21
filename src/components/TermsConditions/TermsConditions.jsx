@@ -67,7 +67,7 @@ const TermsConditions = () => {
             ) : id === 5 ? (
               <p className=" leading-relaxed text-gray-500 text-base sm:text-lg">
                 For any questions or concerns regarding these terms, feel free to contact us at{' '}
-                <span className="text-blue-600 font-medium">info@yourdentalclinic.com</span>.
+                <span className="text-blue-600 font-medium">@trustdentalclinic</span>.
               </p>
             ) : (
               <p className=" leading-relaxed  text-gray-500 text-base sm:text-lg">{text}</p>

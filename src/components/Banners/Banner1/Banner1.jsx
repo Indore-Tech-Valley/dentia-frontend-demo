@@ -8,7 +8,7 @@ const Banner1 = () => {
         {/* Left Text Content */}
         <div className="lg:w-[65%] space-y-4 lg:text-left">
           <h4 className="  text-blue-600 font-bold text-md lg:text-lg sm:text-base mb-2 text-left">
-            WELCOME TO DENTIA
+            WELCOME TO TRUSTDENTAL
           </h4>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight tracking-tight">
             Exceptional <span className="text-blue-500">Dental Care</span>

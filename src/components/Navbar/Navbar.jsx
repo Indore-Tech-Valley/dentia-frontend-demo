@@ -138,7 +138,7 @@ const Navbar = () => {
 <Link to="/services" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
   Services
 </Link>
-<Link to="/#dentists" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+<Link to="/about#dentists" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
   Dentists
 </Link>
 <Link to="/events" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">

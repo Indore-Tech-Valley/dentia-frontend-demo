@@ -79,7 +79,7 @@ const Footer = () => {
             <img src={logo} alt="logo" className="w-36 h-9 text-white mb-5" />
           </div>
           <p className="text-gray-300 text-[15px] leading-relaxed ">
-            At Dentia, we’re dedicated to providing high-quality, personalized
+            At TrustDental, we’re dedicated to providing high-quality, personalized
             dental care for patients of all ages. Our skilled team uses the
             latest technology to ensure comfortable, efficient treatments and
             beautiful, healthy smiles for life.
@@ -102,7 +102,7 @@ const Footer = () => {
               <ul className="space-y-2 text-gray-300 text-[16px]">
                 <li><Link to="/" className="hover:text-white">Home</Link></li>
                 <li><Link to="/services" className="hover:text-white">Our Services</Link></li>
-                <li><Link to="/dentists" className="hover:text-white">Dentists</Link></li>
+                <li><Link to="about#dentists" className="hover:text-white">Dentists</Link></li>
                 <li><Link to="/events" className="hover:text-white">Events</Link></li>
                 <li><Link to="/about" className="hover:text-white">About Us</Link></li>
                 <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
@@ -162,7 +162,7 @@ const Footer = () => {
                 <FaEnvelope className="text-blue-400 mt-1" />
                 <div>
                   <p className="font-semibold text-white">Send a Message</p>
-                  contact@dentiacare.com
+                  @trustdentalclinic
                 </div>
               </div>
             </li>

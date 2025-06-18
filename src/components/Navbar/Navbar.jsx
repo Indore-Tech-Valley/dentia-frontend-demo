@@ -53,7 +53,7 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ${
-        scrolled || isMobile ? 'bg-white shadow-md ' : 'bg-transparent'
+        scrolled || isMobile ? 'bg-white shadow-md ' : ' bg-transparent'
         // scrolled || isMobile ? 'shadow-md bg-[#000C67]' : 'bg-transparent'
       } ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}
     >
@@ -66,7 +66,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav
           className={`${
-            scrolled || isMobile ? 'bg-white text-black' :' bg-transparent'
+            scrolled || isMobile ? 'bg-white text-black' :'text-white bg-transparent'
           } hidden md:flex gap-8 text-md font-medium text-slate-800`}
         >
           <Link to="/" className="relative group">

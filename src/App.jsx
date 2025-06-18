@@ -5,8 +5,7 @@ import Index from './Routes/Index';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import BackToTopButton from './components/BackToTopButton/BackToTopButton';
-
+import FloatingActionButtons from './components/FloatingActionButtons/FloatingActionButtons';
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
      <ScrollToTop />
     <Navbar/>
     <Index />
-    <BackToTopButton /> {/* Add here */}
+    <FloatingActionButtons /> {/* Add here */}
     <Footer/>
     </BrowserRouter>
   );

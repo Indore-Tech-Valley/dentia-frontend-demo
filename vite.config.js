@@ -1,11 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
-export default defineConfig({
-  build: {
-    outDir: 'build'  // This changes output folder from dist to build
+export default defineConfig(({ mode }) => ({
+  server: {
+    host: '0.0.0.0',      // Enables access on local network (mobile)
+    port: 3000,           // Optional: any open port
   },
-  base:'/dentia-frontend-demo/',
-  plugins: [react()],
-})
+  build: {
+    outDir: 'build'       // Output directory for production
+  },
+  base: mode === 'production' ? '/dentia-frontend-demo/' : '/dentia-frontend-demo/',  // Use correct base
+  plugins: [react()]
+}));

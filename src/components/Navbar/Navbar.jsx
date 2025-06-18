@@ -66,7 +66,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav
           className={`${
-            scrolled || isMobile ? 'bg-white text-black' : 'text-white bg-transparent'
+            scrolled || isMobile ? 'bg-white text-black' :' bg-transparent'
           } hidden md:flex gap-8 text-md font-medium text-slate-800`}
         >
           <Link to="/" className="relative group">

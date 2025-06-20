@@ -1,48 +1,16 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
-// Define the services data
-const services = [
-  {
-    id: "general-dentistry",
-    title: "General Dentistry",
-    desc: "Our general dentistry services include routine exams, cleanings, and fillings, ensuring optimal oral health for every patient. We focus on prevention and education, helping you maintain a healthy smile with regular checkups and personalized care plans.",
-    image: "https://imk.storage.googleapis.com/file/AjsNfBtxHs3mSAYYn/file_why-is-general-dentistry-necessary-kokua-smiles.jpg",
-  },
-  {
-    id: "cosmetic-dentistry",
-    title: "Cosmetic Dentistry",
-    desc: "Cosmetic dentistry enhances your smile’s appearance with state-of-the-art treatments like veneers, professional whitening, and composite bonding. We tailor every procedure to suit your goals, creating a confident, radiant smile you’ll love to show off.",
-    image: "https://lh5.googleusercontent.com/Anh42yGS6iolqml9drlUSA3Jdkm9IUjMPErAO8507kA7SYYtMPlnPUPefTaN9bvXfO12bPiVGBytkIk0K8hHyweb_XXnrR6xvfGa0mJFbeGpZAgXvx0iXMEpiCBKCykqzg2nnAnTqnBxWIzTLQ",
-  },
-  {
-    id: "pediatric-dentistry",
-    title: "Pediatric Dentistry",
-    desc: "We provide specialized dental care for children in a warm and friendly environment. Our pediatric services include preventive treatments, fluoride applications, sealants, and cavity care—focused on making every visit enjoyable and stress-free for kids and parents alike.",
-    image: "https://www.innovativepediatricdentistry.com/wp-content/uploads/2018/07/pediatric-dental-advancements.jpg",
-  },
-  {
-    id: "restorative-dentistry",
-    title: "Restorative Dentistry",
-    desc: "Restore the function and aesthetics of your smile with crowns, bridges, dental implants, and more. Our restorative dentistry services are tailored to help you regain comfort, confidence, and long-lasting dental health after damage or tooth loss.",
-    image: "https://mcdonoughdentalstudio.com/sites/g/files/xejaxa416/files/2021-10/Inlay.jpg",
-  },
-  {
-    id: "preventive-dentistry",
-    title: "Preventive Dentistry",
-    desc: "Stay ahead of dental problems with proactive care. Our preventive services include comprehensive exams, cleanings, fluoride treatments, and sealants designed to stop decay and gum disease before they start—keeping your teeth strong for life.",
-    image: "https://khushidentalclinic.com/wp-content/uploads/2021/11/Preventive-Dentistry.jpg",
-  },
-  {
-    id: "orthodontics",
-    title: "Orthodontics",
-    desc: "Achieve straighter teeth and a properly aligned bite with our modern orthodontic treatments. From traditional metal braces to clear aligners, we offer personalized solutions to improve your smile’s appearance and long-term dental function.",
-    image: "https://healingclinicturkey.com/wp-content/uploads/2021/01/orthodontics-dentistry-e1611427779559-980x580.jpg",
-  }
-];
+import { useDispatch,useSelector } from "react-redux";
+import { fetchServices } from "../../redux/features/servicesSlice/servicesSlice";
 
 const Services = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { services, loading } = useSelector((state) => state.service);
+
+  useEffect(() => {
+  dispatch(fetchServices());
+}, [dispatch]);
 
   useEffect(() => {
     const hash = location.hash;
@@ -69,7 +37,11 @@ const Services = () => {
 
 
         <div>
-          {services.map((item, index) => (
+          {
+          loading ? (
+  <p className="text-center text-gray-500">Loading services...</p>
+) : (
+          services.map((item, index) => (
             <div
               key={index}
               id={item.id}
@@ -90,11 +62,13 @@ const Services = () => {
                   {item.title}
                 </h3>
                 <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl">
-                  {item.desc}
+                  {item.description}
                 </p>
               </div>
             </div>
-          ))}
+          ))
+        ) 
+          }
         </div>
       </div>
     </div>

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Homepage from '../components/Homepage/Homepage';
-import AboutUs from '../components/AboutUs/AboutUs';
-import AboutPage from '../components/AboutPage/AboutPage';
-import Events from '../components/Events/Events';
-import TermsConditions from '../components/TermsConditions/TermsConditions';
-import PrivacyPolicy from '../components/PrivacyPolicy/PrivacyPolicy';
-import ServicePage from '../components/ServicePage/ServicePage';
-import ContactPage from '../components/ContactPage/ContactUsPage';
+import Homepage from '../pages/Homepage/Homepage'
+import AboutPage from '../pages/AboutPage/AboutPage';
+import Events from '..//pages/Events/Events';
+import TermsConditions from '../pages/TermsConditions/TermsConditions';
+import PrivacyPolicy from '../pages/PrivacyPolicy/PrivacyPolicy';
+import ServicePage from '../pages/ServicePage/ServicePage';
+import ContactPage from '../pages/ContactPage/ContactUsPage';
 
 
 const Index = () => {

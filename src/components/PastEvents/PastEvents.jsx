@@ -23,34 +23,34 @@ const cardVariants = {
   },
 };
 
-const pastEventsData = [
-  {
-    id: 1,
-    image:
-      "https://cdn-az.allevents.in/events7/banners/e2b0582fea6103252e87c131f5b1b3a919c8102c962f57e4b9332a091b442ca4-rimg-w819-h546-dcd5d3d8-gmir.jpg?v=1730761623",
-    title: "Smile Makeover Seminar",
-    description:
-      "An in-depth session on cosmetic dentistry techniques for enhancing smiles using modern procedures.",
-  },
-  {
-    id: 2,
-    image:
-      "https://web.inmobicdn.net/website/website/6.0.1/ui/uploads/resources/case-study/LP_Header_Image_1.jpg",
-    title: "Oral Hygiene Awareness Drive",
-    description:
-      "Community outreach program promoting proper brushing techniques and preventive dental care habits.",
-  },
-  {
-    id: 3,
-    image:
-      "https://www.sproutpediatricdentistry.com/wp-content/uploads/2024/02/01-Learn-if-Dental-Sedation-1.jpg",
-    title: "Pediatric Dental Camp",
-    description:
-      "Specialized event for children's dental check-ups, education, and introducing friendly dental care.",
-  },
-];
+// const pastEventsData = [
+//   {
+//     id: 1,
+//     image:
+//       "https://cdn-az.allevents.in/events7/banners/e2b0582fea6103252e87c131f5b1b3a919c8102c962f57e4b9332a091b442ca4-rimg-w819-h546-dcd5d3d8-gmir.jpg?v=1730761623",
+//     title: "Smile Makeover Seminar",
+//     description:
+//       "An in-depth session on cosmetic dentistry techniques for enhancing smiles using modern procedures.",
+//   },
+//   {
+//     id: 2,
+//     image:
+//       "https://web.inmobicdn.net/website/website/6.0.1/ui/uploads/resources/case-study/LP_Header_Image_1.jpg",
+//     title: "Oral Hygiene Awareness Drive",
+//     description:
+//       "Community outreach program promoting proper brushing techniques and preventive dental care habits.",
+//   },
+//   {
+//     id: 3,
+//     image:
+//       "https://www.sproutpediatricdentistry.com/wp-content/uploads/2024/02/01-Learn-if-Dental-Sedation-1.jpg",
+//     title: "Pediatric Dental Camp",
+//     description:
+//       "Specialized event for children's dental check-ups, education, and introducing friendly dental care.",
+//   },
+// ];
 
-const PastEvents = () => {
+const PastEvents = ({pastEventsData}) => {
   return (
     <motion.div
       className="w-full bg-blue-50"
@@ -70,7 +70,7 @@ const PastEvents = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {pastEventsData.map((event) => (
+          {pastEventsData?.map((event) => (
             <motion.div
               key={event.id}
               className="bg-white rounded-xl shadow hover:shadow-md transition-shadow duration-300"
@@ -93,9 +93,9 @@ const PastEvents = () => {
           ))}
         </div>
 
-        <motion.div className="text-center mt-14" variants={cardVariants}>
+        {/* <motion.div className="text-center mt-14" variants={cardVariants}>
           <Link
-            to="/"
+            to="/events/past"
             className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
           >
             <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
@@ -105,7 +105,7 @@ const PastEvents = () => {
               View More
             </span>
           </Link>
-        </motion.div>
+        </motion.div> */}
       </section>
     </motion.div>
   );

@@ -10,7 +10,7 @@ import FloatingActionButtons from './components/FloatingActionButtons/FloatingAc
 function App() {
   return (
     <BrowserRouter basename='/dentia-frontend-demo'>
-     <ScrollToTop />
+    <ScrollToTop />
     <Navbar/>
     <Index />
     <FloatingActionButtons /> {/* Add here */}

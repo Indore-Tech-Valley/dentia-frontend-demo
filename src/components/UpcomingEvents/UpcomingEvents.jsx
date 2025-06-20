@@ -23,34 +23,10 @@ const cardVariants = {
   },
 };
 
-const upcomingEventsData = [
-  {
-    id: 1,
-    image:
-      "https://dentalresourceasia.com/wp-content/uploads/2024/11/SIDC-2025_DRA.png",
-    title: "Advanced Dental Conference 2025",
-    description:
-      "A gathering of leading dental professionals to explore innovations and future trends in dentistry.",
-  },
-  {
-    id: 2,
-    image:
-      "https://yamuna.edu.in/wp-content/uploads/2022/12/WhatsApp-Image-2022-12-19-at-14.56.09-1024x766.jpg",
-    title: "Free Dental Check-Up Camp",
-    description:
-      "Offering complimentary dental check-ups and oral care consultations to the local community.",
-  },
-  {
-    id: 3,
-    image:
-      "https://i.ytimg.com/vi/hbRPYGDgl1c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBNNtyWJHVdeiisSO6Wk3lDZWFvZg",
-    title: "Digital Dentistry Workshop",
-    description:
-      "Hands-on workshop introducing digital tools and techniques revolutionizing modern dental practice.",
-  },
-];
 
-const UpcomingEvents = () => {
+const UpcomingEvents = ({upcomingEventsData}) => {
+  
+  console.log(upcomingEventsData);
   return (
     <motion.section
       className="max-w-7xl mx-auto px-6 py-12 lg:py-24"
@@ -69,7 +45,7 @@ const UpcomingEvents = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {upcomingEventsData.map((event) => (
+        {upcomingEventsData?.map((event) => (
           <motion.div
             key={event.id}
             className="bg-white rounded-xl shadow hover:shadow-md transition-shadow duration-300"
@@ -93,9 +69,9 @@ const UpcomingEvents = () => {
         ))}
       </div>
 
-      <motion.div className="text-center mt-14" variants={cardVariants}>
+      {/* <motion.div className="text-center mt-14" variants={cardVariants}>
         <Link
-          to="/"
+          to="/events/upcoming"
           className="relative group hidden md:inline-block bg-blue-600 hover:bg-[#10244b] text-white px-6 py-3 rounded-lg font-semibold text-md overflow-hidden min-w-[160px] h-[44px] transition-colors duration-300 ease-in-out"
         >
           <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
@@ -105,7 +81,7 @@ const UpcomingEvents = () => {
             View More
           </span>
         </Link>
-      </motion.div>
+      </motion.div> */}
     </motion.section>
   );
 };

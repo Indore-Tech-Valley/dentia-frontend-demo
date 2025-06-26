@@ -28,6 +28,19 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
+// Update contact query by ID (admin)
+export const updateContact = createAsyncThunk(
+  'contact/update',
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const response = await apiRequest('PATCH', `${ADMIN_CONTACT_API_URL}/${id}`, data, true);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
 // Delete contact query by ID (admin)
 export const deleteContact = createAsyncThunk(
   'contact/delete',
@@ -85,6 +98,24 @@ const contactSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Update
+.addCase(updateContact.pending, (state) => {
+  state.loading = true;
+  state.success = false;
+})
+.addCase(updateContact.fulfilled, (state, action) => {
+  state.loading = false;
+  state.success = true;
+  const index = state.contacts.findIndex(c => c._id === action.payload.data._id);
+  if (index !== -1) {
+    state.contacts[index] = action.payload.data;
+  }
+})
+.addCase(updateContact.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
 
       // Delete
       .addCase(deleteContact.pending, (state) => {

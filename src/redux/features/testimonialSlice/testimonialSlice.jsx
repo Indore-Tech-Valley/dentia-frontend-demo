@@ -15,6 +15,20 @@ export const fetchTestimonials = createAsyncThunk(
   }
 );
 
+// GET all testimonials (admin)
+export const fetchAdminTestimonials = createAsyncThunk(
+  "testimonial/fetchAdmin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await apiRequest("GET", ADMIN_TESTIMONIAL_API_URL, null, true);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || err.message);
+    }
+  }
+);
+
+
 // POST a testimonial
 export const createTestimonial = createAsyncThunk(
   "testimonial/create",
@@ -56,11 +70,12 @@ export const deleteTestimonial = createAsyncThunk(
 
 const testimonialSlice = createSlice({
   name: "testimonial",
-  initialState: {
-    testimonials: [],
-    loading: false,
-    error: null,
-  },
+initialState: {
+  testimonials: [],
+  adminTestimonials: [], // 👈 for admin view
+  loading: false,
+  error: null,
+},
   reducers: {
     clearTestimonialError: (state) => {
       state.error = null;
@@ -80,22 +95,38 @@ const testimonialSlice = createSlice({
         state.loading = false;
       })
 
-      .addCase(createTestimonial.fulfilled, (state, action) => {
-        state.testimonials.push(action.payload);
-      })
+      .addCase(fetchAdminTestimonials.pending, (state) => {
+  state.loading = true;
+})
+.addCase(fetchAdminTestimonials.fulfilled, (state, action) => {
+  state.loading = false;
+  state.adminTestimonials = action.payload;
+})
+.addCase(fetchAdminTestimonials.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
 
-      .addCase(updateTestimonial.fulfilled, (state, action) => {
-        const index = state.testimonials.findIndex(
-          (t) => t._id === action.payload._id
-        );
-        if (index !== -1) state.testimonials[index] = action.payload;
-      })
 
-      .addCase(deleteTestimonial.fulfilled, (state, action) => {
-        state.testimonials = state.testimonials.filter(
-          (t) => t._id !== action.payload
-        );
-      });
+.addCase(createTestimonial.fulfilled, (state, action) => {
+  state.testimonials.push(action.payload);
+  state.adminTestimonials.push(action.payload); // update admin list too
+})
+
+
+.addCase(updateTestimonial.fulfilled, (state, action) => {
+  const index = state.testimonials.findIndex((t) => t._id === action.payload._id);
+  if (index !== -1) state.testimonials[index] = action.payload;
+
+  const adminIndex = state.adminTestimonials.findIndex((t) => t._id === action.payload._id);
+  if (adminIndex !== -1) state.adminTestimonials[adminIndex] = action.payload;
+})
+
+
+.addCase(deleteTestimonial.fulfilled, (state, action) => {
+  state.testimonials = state.testimonials.filter((t) => t._id !== action.payload);
+  state.adminTestimonials = state.adminTestimonials.filter((t) => t._id !== action.payload);
+});
   },
 });
 

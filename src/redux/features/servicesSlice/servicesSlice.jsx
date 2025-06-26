@@ -1,6 +1,6 @@
 // redux/features/serviceSlice/serviceSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiRequest } from '../../../utils/utils';
+import { apiRequest, apiRequestMultipart } from '../../../utils/utils';
 import { SERVICE_API, ADMIN_SERVICE_API } from '../../../utils/config';
 
 // POST - Create Service
@@ -8,7 +8,7 @@ export const createService = createAsyncThunk(
   'service/create',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await apiRequest('POST', ADMIN_SERVICE_API, data, true);
+      const response = await apiRequestMultipart('POST', ADMIN_SERVICE_API, data, true);
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -34,7 +34,7 @@ export const updateService = createAsyncThunk(
   'service/update',
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await apiRequest('PATCH', `${ADMIN_SERVICE_API}/${id}`, data, true);
+      const response = await apiRequestMultipart('PATCH', `${ADMIN_SERVICE_API}/${id}`, data, true);
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);

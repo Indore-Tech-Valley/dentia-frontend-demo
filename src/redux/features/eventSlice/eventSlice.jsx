@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiRequest } from "../../../utils/utils";
+import { apiRequest, apiRequestMultipart } from "../../../utils/utils";
 import { EVENT_API, ADMIN_EVENT_API } from "../../../utils/config";
 
 // Create Event
@@ -7,7 +7,7 @@ export const createEvent = createAsyncThunk(
   "event/create",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await apiRequest("POST", ADMIN_EVENT_API, data, true);
+      const response = await apiRequestMultipart("POST", ADMIN_EVENT_API, data, true);
       return response;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -33,7 +33,7 @@ export const updateEvent = createAsyncThunk(
   "event/update",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await apiRequest("PUT", `${ADMIN_EVENT_API}/${id}`, data, true);
+      const response = await apiRequestMultipart("PATCH", `${ADMIN_EVENT_API}/${id}`, data, true);
       return response;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);

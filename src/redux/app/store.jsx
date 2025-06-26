@@ -8,6 +8,7 @@ import testimonialReducer from "../features/testimonialSlice/testimonialSlice";
 import serviceReducer from "../features/servicesSlice/servicesSlice";
 import eventReducer from "../features/eventSlice/eventSlice";
 import doctorReducer from "../features/doctorSlice/doctorSlice"; // Uncomment if you have a doctor slice
+import adminReducer from "../features/adminSlice/adminSlice"; // Uncomment if you have an admin slice
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     testimonial: testimonialReducer,
     service: serviceReducer,
     event: eventReducer,
-    doctor: doctorReducer, // Uncomment if you have a doctor slice
+    doctor: doctorReducer,
+    admin: adminReducer, 
 
   },
 });

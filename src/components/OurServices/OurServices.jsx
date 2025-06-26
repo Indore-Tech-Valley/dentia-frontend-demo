@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { LiaToothSolid } from "react-icons/lia";
@@ -8,54 +8,17 @@ import { RiToothLine } from "react-icons/ri";
 import { MdOutlineShield } from "react-icons/md";
 import { LiaTeethSolid } from "react-icons/lia";
 import { motion } from "framer-motion";
-
-const services = [
-  {
-    id: "general-dentistry",
-    title: "General Dentistry",
-    description:
-      "Our general dentistry services include routine exams, cleanings, and fillings, ensuring optimal oral health for every patient.",
-    icon: <LiaToothSolid className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "cosmetic-dentistry",
-    title: "Cosmetic Dentistry",
-    description:
-      "Cosmetic dentistry enhances your smile’s appearance with state-of-the-art treatments like veneers, professional whitening, and bonding.",
-    icon: <CiFaceSmile className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "pediatric-dentistry",
-    title: "Pediatric Dentistry",
-    description:
-      "We provide specialized dental care for children in a warm and friendly environment with fluoride treatments and sealants.",
-    icon: <PiPersonArmsSpreadLight className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "restorative-dentistry",
-    title: "Restorative Dentistry",
-    description:
-      "Restore the function and aesthetics of your smile with crowns, bridges, dental implants, and more.",
-    icon: <RiToothLine className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "preventive-dentistry",
-    title: "Preventive Dentistry",
-    description:
-      "Proactive care including cleanings, fluoride, and sealants to stop decay and gum disease before they start.",
-    icon: <MdOutlineShield className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "orthodontics",
-    title: "Orthodontics",
-    description:
-      "Straighten your teeth and bite with modern braces or clear aligners tailored to your dental goals.",
-    icon: <LiaTeethSolid className="text-blue-500 text-5xl" />,
-  },
-];
+import { useSelector,useDispatch } from "react-redux";
+import { fetchServices } from "../../redux/features/servicesSlice/servicesSlice";
 
 const OurServices = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { services,loading,error } = useSelector((state) => state.service);
+
+  useEffect(() => {
+    dispatch(fetchServices());
+  }, [dispatch]);
 
   const handleReadMoreClick = (id) => {
     navigate(`/services#${id}`);
@@ -99,61 +62,71 @@ const OurServices = () => {
         </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto px-6">
-        {services.slice(0, 4).map((service) => (
-          <motion.div
-            key={service.id}
-            className="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition duration-300 flex flex-col h-[420px]"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <div className="flex-grow">
-              {service.icon}
-              <motion.h4
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.6 }}
-                viewport={{ once: true }}
-                className="font-semibold text-xl mt-6 mb-3"
-              >
-                {service.title}
-              </motion.h4>
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.8 }}
-                viewport={{ once: true }}
-                className="leading-relaxed text-gray-500 text-base sm:text-lg"
-              >
-                {service.description}
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 1 }}
-              viewport={{ once: true }}
-              className="mt-auto pt-6"
-            >
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleReadMoreClick(service.id);
-                }}
-                className="group relative flex items-center border border-slate-300 rounded-full bg-white text-blue-900 overflow-hidden transition-all duration-500 ease-in-out pl-4 pr-4 h-12 w-12 hover:w-40"
-              >
-                <FaPlus className="text-blue-900 z-10" />
-                <span className="absolute left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out whitespace-nowrap font-semibold">
-                  Read more
-                </span>
-              </button>
-            </motion.div>
-          </motion.div>
-        ))}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto px-6">
+  {services.slice(0, 4).map((service) => (
+    <motion.div
+      key={service.id}
+      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-[450px]"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.4 }}
+      viewport={{ once: true }}
+    >
+      {/* Service Image */}
+      <div className="h-48 w-full overflow-hidden">
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+        />
       </div>
+
+      {/* Service Content */}
+      <div className="flex-grow p-6 flex flex-col justify-between">
+        <div>
+          <motion.h4
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
+            className="font-bold text-xl text-blue-900 mb-2"
+          >
+            {service.title}
+          </motion.h4>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
+            className="text-gray-600 text-sm line-clamp-4"
+          >
+            {service.description}
+          </motion.p>
+        </div>
+
+        {/* Read More Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+          className="pt-4"
+        >
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleReadMoreClick(service.id);
+            }}
+            className="group relative flex items-center border border-blue-200 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-900 overflow-hidden transition-all duration-300 ease-in-out pl-4 pr-4 h-11 w-12 hover:w-40"
+          >
+            <FaPlus className="text-blue-800 z-10" />
+            <span className="absolute left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap font-semibold">
+              Read more
+            </span>
+          </button>
+        </motion.div>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
 
       <div className="text-center mt-14">
         <motion.div

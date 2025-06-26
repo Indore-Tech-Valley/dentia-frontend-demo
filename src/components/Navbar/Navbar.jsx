@@ -89,6 +89,10 @@ const Navbar = () => {
             <span className="transition-colors duration-300 ">About Us</span>
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
           </Link>
+             <Link to="/contact" className="relative group">
+            <span className="transition-colors duration-300 ">Contact Us</span>
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         </nav>
 
         {/* CTA + Mobile Menu Toggle */}
@@ -146,6 +150,9 @@ const Navbar = () => {
 </Link>
 <Link to="/about" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
   About Us
+</Link>
+<Link to="/contact" onClick={() => setMenuOpen(false)} className="block py-3 border-b border-gray-200">
+  Contact Us
 </Link>
 <Link
   to="/#appointment"

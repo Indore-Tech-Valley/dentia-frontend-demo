@@ -27,3 +27,5 @@ export const ADMIN_EVENT_API = `${BASE_URL}/admin/events`;
 // API Endpoints : Dotors
 export const DOCTOR_API = `${BASE_URL}/doctors`;
 export const ADMIN_DOCTOR_API = `${BASE_URL}/admin/doctors`;
+// API Endpoints : Admin
+export const ADMIN_API = `${BASE_URL}/admin`;

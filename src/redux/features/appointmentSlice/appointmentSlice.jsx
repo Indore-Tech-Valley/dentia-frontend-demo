@@ -22,6 +22,19 @@ export const fetchAppointments = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiRequest('GET', ADMIN_APPOINTMENT_API_URL, null, true);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+// UPDATE Appointment
+export const updateAppointment = createAsyncThunk(
+  'appointment/update',
+  async ({ id, updatedData }, { rejectWithValue }) => {
+    try {
+      const response = await apiRequest('PUT', `${ADMIN_APPOINTMENT_API_URL}/${id}`, updatedData, true);
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -30,14 +43,13 @@ export const fetchAppointments = createAsyncThunk(
 );
 
 
-
 // DELETE Appointment
 export const deleteAppointment = createAsyncThunk(
   'appointment/delete',
   async (id, { rejectWithValue }) => {
     try {
       const response = await apiRequest('DELETE', `${ADMIN_APPOINTMENT_API_URL}/${id}`, null, true);
-      return { id, ...response };
+      return response; // Assuming the response contains the deleted appointment ID
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -89,6 +101,23 @@ const appointmentSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Update
+.addCase(updateAppointment.pending, (state) => {
+  state.loading = true;
+  state.success = false;
+})
+.addCase(updateAppointment.fulfilled, (state, action) => {
+  state.loading = false;
+  state.success = true;
+  state.appointments = state.appointments.map((a) =>
+    a._id === action.payload._id ? action.payload : a
+  );
+})
+.addCase(updateAppointment.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
 
       // Delete
       .addCase(deleteAppointment.pending, (state) => {

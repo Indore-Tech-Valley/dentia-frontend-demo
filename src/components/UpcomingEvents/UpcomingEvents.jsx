@@ -44,12 +44,24 @@ const UpcomingEvents = ({upcomingEventsData}) => {
         </h3>
       </motion.div>
 
+      {
+        upcomingEventsData?.length === 0 && (
+          <motion.div
+            className="text-center text-gray-500 text-lg"
+            // variants={cardVariants}
+          >
+            No upcoming events at the moment. Please check back later!
+          </motion.div>
+        )
+        
+      }
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {upcomingEventsData?.map((event) => (
           <motion.div
-            key={event.id}
+            key={event._id}
             className="bg-white rounded-xl shadow hover:shadow-md transition-shadow duration-300"
-            variants={cardVariants}
+            // variants={cardVariants}
           >
             <img
               src={event.image}

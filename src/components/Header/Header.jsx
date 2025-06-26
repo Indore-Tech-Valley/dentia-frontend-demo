@@ -11,7 +11,7 @@ const Header = ({ title, image }) => {
       }}
     >
       {/* Gradient overlay */}
-      <div className=" bg-opacity-70    absolute inset-0 bg-gradient-to-r from-indigo-900 bg-opacity-70" />
+      <div className=" absolute inset-0 bg-gradient-to-r from-indigo-900 bg-opacity-70" />
 
       {/* Content */}
       <div className="relative z-10 px-4">

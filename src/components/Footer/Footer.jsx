@@ -16,50 +16,53 @@ import { RiToothLine } from "react-icons/ri";
 import { MdOutlineShield } from "react-icons/md";
 import { LiaTeethSolid } from "react-icons/lia";
 import logo from '../Navbar/Logo/WhiteLogo.png';
+import { useDispatch,useSelector } from "react-redux";
 
 
-const services = [
-  {
-    id: "general-dentistry",
-    title: "General Dentistry",
-    description: "Our general dentistry services include routine exams, cleanings, and fillings, ensuring optimal oral health for every patient .",
-    icon: <LiaToothSolid className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "cosmetic-dentistry",
-    title: "Cosmetic Dentistry",
-    description: "Cosmetic dentistry enhances your smile’s appearance with state-of-the-art treatments like veneers, professional whitening, and bonding.",
-    icon: <CiFaceSmile className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "pediatric-dentistry",
-    title: "Pediatric Dentistry",
-    description: "We provide specialized dental care for children in a warm and friendly environment with fluoride treatments and sealants.",
-    icon: <PiPersonArmsSpreadLight className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "restorative-dentistry",
-    title: "Restorative Dentistry",
-    description: "Restore the function and aesthetics of your smile with crowns, bridges, dental implants, and more.",
-    icon: <RiToothLine className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "preventive-dentistry",
-    title: "Preventive Dentistry",
-    description: "Proactive care including cleanings, fluoride, and sealants to stop decay and gum disease before they start.",
-    icon: <MdOutlineShield className="text-blue-500 text-5xl" />,
-  },
-  {
-    id: "orthodontics",
-    title: "Orthodontics",
-    description: "Straighten your teeth and bite with modern braces or clear aligners tailored to your dental goals.",
-    icon: <LiaTeethSolid className="text-blue-500 text-5xl" />,
-  },
+
+// const services = [
+//   {
+//     id: "general-dentistry",
+//     title: "General Dentistry",
+//     description: "Our general dentistry services include routine exams, cleanings, and fillings, ensuring optimal oral health for every patient .",
+//     icon: <LiaToothSolid className="text-blue-500 text-5xl" />,
+//   },
+//   {
+//     id: "cosmetic-dentistry",
+//     title: "Cosmetic Dentistry",
+//     description: "Cosmetic dentistry enhances your smile’s appearance with state-of-the-art treatments like veneers, professional whitening, and bonding.",
+//     icon: <CiFaceSmile className="text-blue-500 text-5xl" />,
+//   },
+//   {
+//     id: "pediatric-dentistry",
+//     title: "Pediatric Dentistry",
+//     description: "We provide specialized dental care for children in a warm and friendly environment with fluoride treatments and sealants.",
+//     icon: <PiPersonArmsSpreadLight className="text-blue-500 text-5xl" />,
+//   },
+//   {
+//     id: "restorative-dentistry",
+//     title: "Restorative Dentistry",
+//     description: "Restore the function and aesthetics of your smile with crowns, bridges, dental implants, and more.",
+//     icon: <RiToothLine className="text-blue-500 text-5xl" />,
+//   },
+//   {
+//     id: "preventive-dentistry",
+//     title: "Preventive Dentistry",
+//     description: "Proactive care including cleanings, fluoride, and sealants to stop decay and gum disease before they start.",
+//     icon: <MdOutlineShield className="text-blue-500 text-5xl" />,
+//   },
+//   {
+//     id: "orthodontics",
+//     title: "Orthodontics",
+//     description: "Straighten your teeth and bite with modern braces or clear aligners tailored to your dental goals.",
+//     icon: <LiaTeethSolid className="text-blue-500 text-5xl" />,
+//   },
   
-];
+// ];
 
 const Footer = () => {
   const navigate = useNavigate();
+  const {services, loading, error} = useSelector((state) => state.service);
 
   // Handle smooth scroll navigation
   const handleLinkClick = (id) => {
@@ -113,7 +116,7 @@ const Footer = () => {
             <div className="min-w-[150px]">
               <h4 className="text-white font-semibold text-xl mb-4">Our Services</h4>
               <ul className="space-y-2 text-gray-300 text-[16px]">
-              {services.map((e)=>(
+              {services?.slice(0,6)?.map((e)=>(
                  <li key={e.id}>
                   <button
                     onClick={() => handleLinkClick(e.id)}

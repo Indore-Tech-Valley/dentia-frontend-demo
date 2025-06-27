@@ -1,52 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiUser, FiMail, FiLock, FiEdit2, FiTrash2, FiPlus, FiSearch } from 'react-icons/fi';
+import { registerAdmin, getAllAdmins, updateAdmin, deleteAdmin } from '../../../redux/features/adminSlice/adminSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import MessageModal from '../../../components/MessageModal/MessageModal';
+import DeleteConfirmation from '../../components/DeleteConfirmation/DeleteConfirmation';
 
 const AdminManagement = () => {
-  // Sample admin data
-  const [admins, setAdmins] = useState([
-    {
-      id: 1,
-      email: 'admin@clinic.com',
-      username: 'superadmin',
-      password: '••••••••', // Note: In real apps, never store passwords in state like this
-      createdAt: '2023-06-01',
-      lastLogin: '2023-06-15'
-    },
-    {
-      id: 2,
-      email: 'manager@clinic.com',
-      username: 'clinicmanager',
-      password: '••••••••',
-      createdAt: '2023-06-05',
-      lastLogin: '2023-06-14'
-    },
-    {
-      id: 3,
-      email: 'reception@clinic.com',
-      username: 'receptionadmin',
-      password: '••••••••',
-      createdAt: '2023-06-10',
-      lastLogin: '2023-06-15'
-    }
-  ]);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { admins, loading, error } = useSelector((state) => state.admin);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentAdmin, setCurrentAdmin] = useState(null);
-  const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: ''
-  });
+const [formData, setFormData] = useState({
+  email: '',
+  username: '',
+  password: '',
+  confirmPassword: '',
+  role: 'admin' // default role
+});
+
   const [errors, setErrors] = useState({});
+  const [deleteId, setDeleteId] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const [modal, setModal] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
+
+  const openModal = (type, message) => {
+    setModal({ show: true, type, message });
+  };
+
+  const closeModal = () => setModal({ ...modal, show: false });
+
+  useEffect(() => {
+    dispatch(getAllAdmins());
+  }, [dispatch]);
 
   // Filter admins
-  const filteredAdmins = admins.filter(admin => {
+  const filteredAdmins = admins?.filter(admin => {
     return (
-      admin.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      admin.username.toLowerCase().includes(searchTerm.toLowerCase())
+      admin?.email?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
+      admin?.username?.toLowerCase()?.includes(searchTerm?.toLowerCase())
     );
   });
 
@@ -88,34 +88,48 @@ const AdminManagement = () => {
   };
 
   // Handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    if (isEditing) {
-      // Update existing admin
-      setAdmins(admins.map(admin => 
-        admin.id === currentAdmin.id ? { 
-          ...admin, 
-          email: formData.email,
-          username: formData.username,
-          ...(formData.password && { password: formData.password }) // Only update password if changed
-        } : admin
-      ));
-    } else {
-      // Add new admin
-      const newAdmin = {
-        id: Math.max(...admins.map(a => a.id), 0) + 1,
-        email: formData.email,
-        username: formData.username,
-        password: '••••••••', // In real app, this would be hashed
-        createdAt: new Date().toISOString().split('T')[0],
-        lastLogin: 'Never'
-      };
-      setAdmins([newAdmin, ...admins]);
-    }
+    try {
+      if (isEditing) {
+        // Update existing admin
+const updateData = {
+  email: formData.email,
+  username: formData.username,
+  ...(formData.password && { password: formData.password }),
+  role: formData.role
+};
 
-    resetForm();
+        const resultAction = await dispatch(updateAdmin({id: currentAdmin._id, data: updateData}));
+        if (updateAdmin.fulfilled.match(resultAction)) {
+          openModal("success", resultAction?.payload?.message || "Admin updated successfully");
+        } else {
+          openModal("error", resultAction?.payload || "Failed to update admin");
+        }
+      } else {
+        // Add new admin
+const newAdmin = {
+  email: formData.email,
+  username: formData.username,
+  password: formData.password,
+  role: formData.role
+};
+
+        const resultAction = await dispatch(registerAdmin(newAdmin));
+        if (registerAdmin.fulfilled.match(resultAction)) {
+          openModal("success", resultAction?.payload?.message || "Admin created successfully");
+        } else {
+          openModal("error", resultAction?.payload || "Failed to create admin");
+        }
+      }
+      resetForm();
+      dispatch(getAllAdmins()); // Refresh the admin list
+    } catch (err) {
+      // console.error('Error:', err);
+      openModal("error", "An unexpected error occurred");
+    }
   };
 
   // Edit admin
@@ -123,18 +137,37 @@ const AdminManagement = () => {
     setCurrentAdmin(admin);
     setIsEditing(true);
     setIsAdding(true);
-    setFormData({
-      email: admin.email,
-      username: admin.username,
-      password: '',
-      confirmPassword: ''
-    });
+setFormData({
+  email: admin.email,
+  username: admin.username,
+  password: '',
+  confirmPassword: '',
+  role: admin.role || 'admin'
+});
+
   };
 
-  // Delete admin
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this admin?')) {
-      setAdmins(admins.filter(admin => admin.id !== id));
+  // Handle delete click
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);
+    setShowConfirmModal(true);
+  };
+
+  // Confirm delete
+  const confirmDelete = async () => {
+    try {
+      const resultAction = await dispatch(deleteAdmin(deleteId));
+      if (deleteAdmin.fulfilled.match(resultAction)) {
+        openModal("success", resultAction?.payload?.message || "Admin deleted successfully");
+      } else {
+        openModal("error", resultAction?.payload || "Failed to delete admin");
+      }
+      dispatch(getAllAdmins()); // Refresh the admin list
+    } catch (err) {
+      // console.error('Failed to delete admin:', err);
+      openModal("error", "An unexpected error occurred while deleting");
+    } finally {
+      setShowConfirmModal(false);
     }
   };
 
@@ -152,10 +185,35 @@ const AdminManagement = () => {
     setErrors({});
   };
 
+  if (loading) {
+    return <div className="p-4 text-center">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="p-4 text-center text-red-500">Error: {error}</div>;
+  }
+
   return (
-    <div className="p-4  mx-auto">
+    <div className="p-4 mx-auto">
       <h1 className="text-2xl font-bold mb-6">Admin Accounts Management</h1>
-      
+
+      {modal.show && (
+        <MessageModal
+          type={modal.type}
+          message={modal.message}
+          onClose={closeModal}
+        />
+      )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmation
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={confirmDelete}
+        title="Confirm Admin Deletion"
+        message="Are you sure you want to delete this admin account? This action cannot be undone."
+      />
+
       {/* Controls */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
@@ -223,6 +281,20 @@ const AdminManagement = () => {
                     placeholder="username"
                   />
                 </div>
+
+                <div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">Role *</label>
+  <select
+    name="role"
+    value={formData.role}
+    onChange={handleInputChange}
+    className="w-full p-2 border rounded"
+  >
+    <option value="admin">Admin</option>
+    <option value="superadmin">Super Admin</option>
+  </select>
+</div>
+
                 {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
               </div>
             </div>
@@ -278,8 +350,9 @@ const AdminManagement = () => {
               <button
                 type="submit"
                 className="px-4 py-2 bg-blue-600 text-white rounded flex items-center gap-2"
+                disabled={loading}
               >
-                {isEditing ? 'Update Admin' : 'Add Admin'}
+                {loading ? 'Processing...' : isEditing ? 'Update Admin' : 'Add Admin'}
               </button>
             </div>
           </form>
@@ -293,6 +366,7 @@ const AdminManagement = () => {
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -301,7 +375,7 @@ const AdminManagement = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredAdmins.length > 0 ? (
               filteredAdmins.map(admin => (
-                <tr key={admin.id} className="hover:bg-gray-50">
+                <tr key={admin._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <FiMail className="mr-2 text-gray-500" />
@@ -315,10 +389,14 @@ const AdminManagement = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {admin.createdAt}
+  {admin.role}
+</td>
+
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {new Date(admin.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {admin.lastLogin}
+                    {admin.lastLogin ? new Date(admin.lastLogin).toLocaleString() : 'Never'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex gap-2">
@@ -330,7 +408,7 @@ const AdminManagement = () => {
                         <FiEdit2 />
                       </button>
                       <button
-                        onClick={() => handleDelete(admin.id)}
+                        onClick={() => handleDeleteClick(admin._id)}
                         className="text-red-600 hover:text-red-900"
                         title="Delete"
                       >

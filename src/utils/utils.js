@@ -28,7 +28,7 @@ const config = {
     const response = await axios(config);
     return response.data;
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     throw new Error(
       error.response?.data?.message || error.response?.data?.error || "Something went wrong"
     );

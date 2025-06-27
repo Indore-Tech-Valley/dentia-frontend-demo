@@ -9,6 +9,7 @@ import {
 } from '../../../redux/features/faqSlice/faqSlice';
 import DeleteConfirmation from '../../components/DeleteConfirmation/DeleteConfirmation';
 
+
 const Faqs = () => {
   const dispatch = useDispatch();
   const { adminFaqs, loading, error } = useSelector(state => state.faq);
@@ -53,7 +54,7 @@ const Faqs = () => {
       dispatch(fetchAdminFaqs()); // Refresh the list
       setShowConfirmModal(false);
     } catch (err) {
-      console.error('Failed to delete FAQ:', err);
+      // console.error('Failed to delete FAQ:', err);
     }
   };
 
@@ -90,7 +91,7 @@ const Faqs = () => {
       setEditingId(null);
       setNewFAQ(false);
     } catch (err) {
-      console.error('Failed to save FAQ:', err);
+      // console.error('Failed to save FAQ:', err);
     }
   };
 

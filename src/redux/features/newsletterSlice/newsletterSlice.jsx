@@ -21,6 +21,7 @@ export const fetchNewsletters = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiRequest('GET', ADMIN_NEWSLETTER_API, null, true);
+      console.log(response)
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);

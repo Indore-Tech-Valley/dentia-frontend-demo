@@ -42,7 +42,7 @@ const handleChange = (e) => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log("Submitting:", formData);
+  // console.log("Submitting:", formData);
 
   try {
     const resultAction = await dispatch(createAppointment(formData));

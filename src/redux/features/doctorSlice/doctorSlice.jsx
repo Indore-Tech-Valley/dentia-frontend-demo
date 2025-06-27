@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiRequest } from '../../../utils/utils';
+import { apiRequest, apiRequestMultipart } from '../../../utils/utils';
 import { DOCTOR_API, ADMIN_DOCTOR_API } from '../../../utils/config';
 
 // POST - Create Doctor
@@ -7,7 +7,7 @@ export const createDoctor = createAsyncThunk(
   'doctor/create',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await apiRequest('POST', ADMIN_DOCTOR_API, data, true);
+      const response = await apiRequestMultipart('POST', ADMIN_DOCTOR_API, data, true);
       return response;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -28,12 +28,25 @@ export const fetchDoctors = createAsyncThunk(
   }
 );
 
+// GET - Fetch All Doctors (Admin - with sensitive info)
+export const fetchAllDoctorsForAdmin = createAsyncThunk(
+  'doctor/fetchAllAdmin',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiRequest('GET', `${ADMIN_DOCTOR_API}`, null, true);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || err.message);
+    }
+  }
+);
+
 // PATCH - Update Doctor
 export const updateDoctor = createAsyncThunk(
   'doctor/update',
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await apiRequest('PUT', `${ADMIN_DOCTOR_API}/${id}`, data, true);
+      const response = await apiRequestMultipart('PATCH', `${ADMIN_DOCTOR_API}/${id}`, data, true);
       return response;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -59,6 +72,7 @@ const doctorsSlice = createSlice({
   name: 'doctor',
   initialState: {
     doctors: [],
+    adminDoctors:[],
     loading: false,
     error: null,
     success: false,
@@ -92,6 +106,19 @@ const doctorsSlice = createSlice({
         state.doctors = action.payload;
       })
       .addCase(fetchDoctors.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+           // Fetch Admin Doctors
+      .addCase(fetchAllDoctorsForAdmin.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchAllDoctorsForAdmin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.adminDoctors = action.payload;
+      })
+      .addCase(fetchAllDoctorsForAdmin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

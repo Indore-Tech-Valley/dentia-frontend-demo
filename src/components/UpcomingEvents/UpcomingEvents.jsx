@@ -26,7 +26,7 @@ const cardVariants = {
 
 const UpcomingEvents = ({upcomingEventsData}) => {
   
-  console.log(upcomingEventsData);
+  // console.log(upcomingEventsData);
   return (
     <motion.section
       className="max-w-7xl mx-auto px-6 py-12 lg:py-24"

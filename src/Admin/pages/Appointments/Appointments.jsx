@@ -45,7 +45,7 @@ const Appointments = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  console.log(serviceTypes);
+  // console.log(serviceTypes);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentAppointment, setCurrentAppointment] = useState(null);
   const [form, setForm] = useState({
@@ -124,7 +124,7 @@ const Appointments = () => {
     // console.log("Submitting:", form);
     if (currentAppointment) {
       // Update existing appointment
-      console.log(currentAppointment);
+      // console.log(currentAppointment);
       const resultAction = await dispatch(
         updateAppointment({
           id: currentAppointment._id,

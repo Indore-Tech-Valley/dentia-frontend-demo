@@ -19,7 +19,7 @@ const Events = () => {
 
   }, [dispatch]);
 
-  console.log(events);
+  // console.log(events);
 
   useEffect(() => {
     if (events.length > 0) {

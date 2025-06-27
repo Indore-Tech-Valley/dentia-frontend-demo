@@ -21,10 +21,10 @@ export const fetchFeedbacks = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiRequest('GET', ADMIN_FEEDBACK_API_URL, null, true);
-      console.log(response)
+      // console.log(response)
       return response;
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }

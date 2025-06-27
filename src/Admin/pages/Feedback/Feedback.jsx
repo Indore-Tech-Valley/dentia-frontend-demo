@@ -92,7 +92,7 @@ const Feedback = () => {
   const saveChanges = async (id) => {
     try {
     const resultAction=  await dispatch(updateFeedback({ id, data: editForm }));
-        console.log(resultAction)
+        // console.log(resultAction)
     if(updateFeedback.fulfilled.match(resultAction)){
   
            openModal('success', resultAction.payload.message || "Feedback updated successfully");

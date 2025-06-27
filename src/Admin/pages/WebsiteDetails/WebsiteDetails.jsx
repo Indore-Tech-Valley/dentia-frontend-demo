@@ -1,65 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { FiEdit2, FiSave, FiClock, FiMapPin, FiPhone, FiMail, FiGlobe, FiInstagram, FiYoutube, FiFacebook } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { FiEdit2, FiSave, FiClock, FiMapPin, FiPhone, FiMail, FiInstagram, FiYoutube, FiFacebook } from 'react-icons/fi';
+import { fetchWebsiteDetails, updateWebsiteDetails } from '../../../redux/features/websiteSlice/websiteSlice';
 
 const WebsiteDetails = () => {
-  // Sample website details data
-  const [websiteDetails, setWebsiteDetails] = useState({
-    websiteName: "HealthPlus Clinic",
-    logo: "https://res.cloudinary.com/dxrkd5stc/image/upload/v1750328933/clinic%20management/website%20logo/amjjm79ltfzwel1az1st.png",
-    location: "123 Medical Drive, Health City, HC 12345",
-    phone: "+1 (555) 123-4567",
-    email: "info@healthplusclinic.com",
-    openingHours: "Mon-Fri: 8:00 AM - 6:00 PM\nSat: 9:00 AM - 2:00 PM\nSun: Closed",
-    instagram: "healthplusclinic",
-    youtube: "healthplusclinic",
-    facebook: "healthplusclinic",
-    cloudinary_id: "clinic management/website logo/amjjm79ltfzwel1az1st"
-  });
+  const dispatch = useDispatch();
+  const { details, loading } = useSelector((state) => state.website);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState({ ...websiteDetails });
+  const [editForm, setEditForm] = useState({});
+  const [logoFile, setLogoFile] = useState(null);
   const [logoPreview, setLogoPreview] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Handle input changes
+  useEffect(() => {
+    dispatch(fetchWebsiteDetails());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (details) {
+      setEditForm(details);
+    }
+  }, [details]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditForm(prev => ({ ...prev, [name]: value }));
+    setEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle logo upload
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // In a real app, you would upload to Cloudinary here
       const previewURL = URL.createObjectURL(file);
+      setLogoFile(file);
       setLogoPreview(previewURL);
-      setEditForm(prev => ({ ...prev, logo: previewURL }));
     }
   };
 
-  // Save changes
-  const saveChanges = () => {
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setWebsiteDetails(editForm);
-      setIsEditing(false);
-      setLogoPreview(null);
-      setIsLoading(false);
-      alert("Website details updated successfully!");
-    }, 1500);
+  const saveChanges = async () => {
+    if (!details?._id) return;
+    const formData = new FormData();
+    Object.keys(editForm).forEach((key) => {
+      if (key !== 'logo') formData.append(key, editForm[key]);
+    });
+    if (logoFile) formData.append('logo', logoFile);
+    // console.log(formData)
+    await dispatch(updateWebsiteDetails({ id: details._id, formData }));
+    setIsEditing(false);
+    setLogoPreview(null);
+    setLogoFile(null);
+    dispatch(fetchWebsiteDetails())
   };
 
-  // Cancel editing
   const cancelEdit = () => {
-    setEditForm(websiteDetails);
-    setLogoPreview(null);
+    setEditForm(details);
     setIsEditing(false);
+    setLogoPreview(null);
+    setLogoFile(null);
   };
 
   return (
-    <div className="p-4  mx-auto">
+    <div className="p-4 mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Website Details</h1>
         {!isEditing ? (
@@ -80,13 +80,9 @@ const WebsiteDetails = () => {
             <button
               onClick={saveChanges}
               className="px-4 py-2 bg-blue-600 text-white rounded flex items-center gap-2"
-              disabled={isLoading}
+              disabled={loading}
             >
-              {isLoading ? 'Saving...' : (
-                <>
-                  <FiSave /> Save Changes
-                </>
-              )}
+              {loading ? 'Saving...' : (<><FiSave /> Save Changes</>)}
             </button>
           </div>
         )}
@@ -94,7 +90,6 @@ const WebsiteDetails = () => {
 
       <div className="bg-white border rounded-lg p-6">
         {isEditing ? (
-          // Edit Mode
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -102,20 +97,20 @@ const WebsiteDetails = () => {
                 <input
                   type="text"
                   name="websiteName"
-                  value={editForm.websiteName}
+                  value={editForm?.websiteName || ''}
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded"
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Logo</label>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-gray-100 overflow-hidden">
-                    <img 
-                      src={logoPreview || editForm.logo} 
-                      alt="Logo preview" 
+                    <img
+                      src={logoPreview || editForm?.logo}
+                      alt="Logo preview"
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -134,7 +129,7 @@ const WebsiteDetails = () => {
               <input
                 type="text"
                 name="location"
-                value={editForm.location}
+                value={editForm?.location || ''}
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
                 required
@@ -147,19 +142,18 @@ const WebsiteDetails = () => {
                 <input
                   type="text"
                   name="phone"
-                  value={editForm.phone}
+                  value={editForm?.phone || ''}
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded"
                   required
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
                 <input
                   type="email"
                   name="email"
-                  value={editForm.email}
+                  value={editForm?.email || ''}
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded"
                   required
@@ -171,109 +165,63 @@ const WebsiteDetails = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">Opening Hours *</label>
               <textarea
                 name="openingHours"
-                value={editForm.openingHours}
+                value={editForm?.openingHours || ''}
                 onChange={handleInputChange}
                 rows="3"
                 className="w-full p-2 border rounded"
-                placeholder="Enter opening hours, one per line"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Instagram</label>
-                <div className="flex">
-                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
-                    @
-                  </span>
-                  <input
-                    type="text"
-                    name="instagram"
-                    value={editForm.instagram}
-                    onChange={handleInputChange}
-                    className="flex-1 p-2 border rounded-r"
-                    placeholder="username"
-                  />
+              {['instagram', 'youtube', 'facebook'].map((platform) => (
+                <div key={platform}>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{platform.charAt(0).toUpperCase() + platform.slice(1)}</label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
+                      @
+                    </span>
+                    <input
+                      type="text"
+                      name={platform}
+                      value={editForm?.[platform] || ''}
+                      onChange={handleInputChange}
+                      className="flex-1 p-2 border rounded-r"
+                      placeholder="username"
+                    />
+                  </div>
                 </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">YouTube</label>
-                <div className="flex">
-                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
-                    @
-                  </span>
-                  <input
-                    type="text"
-                    name="youtube"
-                    value={editForm.youtube}
-                    onChange={handleInputChange}
-                    className="flex-1 p-2 border rounded-r"
-                    placeholder="username"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Facebook</label>
-                <div className="flex">
-                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
-                    @
-                  </span>
-                  <input
-                    type="text"
-                    name="facebook"
-                    value={editForm.facebook}
-                    onChange={handleInputChange}
-                    className="flex-1 p-2 border rounded-r"
-                    placeholder="username"
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         ) : (
-          // View Mode
           <div className="space-y-6">
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="w-24 h-24 rounded-full bg-gray-100 overflow-hidden">
-                <img 
-                  src={websiteDetails.logo} 
-                  alt="Website logo" 
+                <img
+                  src={details?.logo}
+                  alt="Website logo"
                   className="w-full h-full object-contain"
                 />
               </div>
               <h2 className="text-2xl font-bold text-center md:text-left">
-                {websiteDetails.websiteName}
+                {details?.websiteName}
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <FiMapPin className="text-gray-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-gray-700">Location</h3>
-                    <p className="text-gray-600">{websiteDetails.location}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <FiPhone className="text-gray-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-gray-700">Phone</h3>
-                    <p className="text-gray-600">{websiteDetails.phone}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <FiMail className="text-gray-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-gray-700">Email</h3>
-                    <p className="text-gray-600">{websiteDetails.email}</p>
-                  </div>
-                </div>
+                {[{ icon: FiMapPin, label: 'Location', value: details?.location },
+                  { icon: FiPhone, label: 'Phone', value: details?.phone },
+                  { icon: FiMail, label: 'Email', value: details?.email }].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="flex items-start gap-3">
+                      <Icon className="text-gray-500 mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-medium text-gray-700">{label}</h3>
+                        <p className="text-gray-600">{value}</p>
+                      </div>
+                    </div>
+                ))}
               </div>
 
               <div>
@@ -282,41 +230,38 @@ const WebsiteDetails = () => {
                   <div>
                     <h3 className="font-medium text-gray-700">Opening Hours</h3>
                     <div className="text-gray-600 whitespace-pre-line">
-                      {websiteDetails.openingHours}
+                      {details?.openingHours}
                     </div>
                   </div>
                 </div>
 
                 <div className="flex gap-4 mt-6">
-                  {websiteDetails.instagram && (
-                    <a 
-                      href={`https://instagram.com/${websiteDetails.instagram}`} 
-                      target="_blank" 
+                  {details?.instagram && (
+                    <a
+                      href={`https://instagram.com/${details.instagram}`}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-pink-600 hover:text-pink-700"
-                      title="Instagram"
                     >
                       <FiInstagram size={20} />
                     </a>
                   )}
-                  {websiteDetails.youtube && (
-                    <a 
-                      href={`https://youtube.com/${websiteDetails.youtube}`} 
-                      target="_blank" 
+                  {details?.youtube && (
+                    <a
+                      href={`https://youtube.com/${details.youtube}`}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-red-600 hover:text-red-700"
-                      title="YouTube"
                     >
                       <FiYoutube size={20} />
                     </a>
                   )}
-                  {websiteDetails.facebook && (
-                    <a 
-                      href={`https://facebook.com/${websiteDetails.facebook}`} 
-                      target="_blank" 
+                  {details?.facebook && (
+                    <a
+                      href={`https://facebook.com/${details.facebook}`}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-700"
-                      title="Facebook"
                     >
                       <FiFacebook size={20} />
                     </a>

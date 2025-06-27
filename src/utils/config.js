@@ -29,3 +29,10 @@ export const DOCTOR_API = `${BASE_URL}/doctors`;
 export const ADMIN_DOCTOR_API = `${BASE_URL}/admin/doctors`;
 // API Endpoints : Admin
 export const ADMIN_API = `${BASE_URL}/admin`;
+// API Endpoints : website
+export const WEBSITE_API = `${BASE_URL}/website-details`;
+export const ADMIN_WEBSITE_API = `${BASE_URL}/admin/website-details`;
+// API Endpoints : Patient 
+export const PATIENT_API = `${BASE_URL}/patients`;
+export const ADMIN_PATIENT_API = `${BASE_URL}/admin/patients`;
+

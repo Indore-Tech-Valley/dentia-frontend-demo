@@ -160,7 +160,7 @@ const Services = () => {
       }
     } catch (error) {
       openModal("error", "An unexpected error occurred.");
-      console.error("Save error:", error);
+      // console.error("Save error:", error);
     } finally {
       setIsSubmitting(false);
     }

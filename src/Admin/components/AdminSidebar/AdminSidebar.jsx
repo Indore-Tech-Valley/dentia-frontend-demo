@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   FaBox,
@@ -53,6 +53,20 @@ const SidebarItem = ({ icon: Icon, label, to, activeRoute, setActiveRoute }) => 
 // AdminSidebar Component
 const AdminSidebar = ({ isOpen, activeRoute, setActiveRoute }) => {
   const navigate = useNavigate();
+   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  //  console.log(isOnline)
+
+     useEffect(() => {
+    const updateOnlineStatus = () => setIsOnline(navigator.onLine);
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    return () => {
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+    };
+  });
 
   const handleLogout = () => {
      Cookies.remove('authToken'); // Assuming you are using js-cookie to manage cookies
@@ -288,12 +302,12 @@ const AdminSidebar = ({ isOpen, activeRoute, setActiveRoute }) => {
             Logout
           </button>
           
-          <div className="flex items-center px-4 py-2 text-xs text-gray-500 rounded-lg bg-white/50 backdrop-blur-sm">
-            <div className="w-2 h-2 bg-green-400 rounded-full mr-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
-            </div>
-            System Online
-          </div>
+    <div className="flex items-center px-4 py-2 text-xs text-gray-700 rounded-lg bg-white/50 backdrop-blur-sm">
+      <div className={`w-2 h-2 rounded-full mr-2 ${isOnline ? 'bg-green-500' : 'bg-red-500'}`}>
+        <div className={`w-2 h-2 rounded-full animate-ping ${isOnline ? 'bg-green-400' : 'bg-red-400'}`}></div>
+      </div>
+      {isOnline ? 'System Online' : 'System Offline'}
+    </div>
         </div>
       )}
 

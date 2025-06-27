@@ -50,11 +50,22 @@ export const updateAdmin = createAsyncThunk('admin/update', async ({ id, data },
 export const deleteAdmin = createAsyncThunk('admin/delete', async (id, { rejectWithValue }) => {
   try {
     const response = await apiRequest('DELETE', `${BASE_URL}/${id}`, null, true);
-    return { id, ...response };
+    return response;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || error.message || 'Delete failed');
   }
 });
+
+// get admin profile
+export const getLoggedIn = createAsyncThunk('admin/getLoggedIn', async (_, { rejectWithValue }) => {
+  try {
+    const response = await apiRequest('GET', `${BASE_URL}/profile`, null, true);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response?.data?.message || error.message || 'Failed to fetch logged-in admin');
+  }
+});
+
 
 const adminSlice = createSlice({
   name: 'admin',
@@ -143,7 +154,22 @@ const adminSlice = createSlice({
       .addCase(deleteAdmin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      
+      // Get Logged In Admin
+.addCase(getLoggedIn.pending, (state) => {
+  state.loading = true;
+  state.error = null;
+})
+.addCase(getLoggedIn.fulfilled, (state, action) => {
+  state.loading = false;
+  state.admin = action.payload;
+})
+.addCase(getLoggedIn.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
+;
   }
 });
 

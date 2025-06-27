@@ -35,7 +35,7 @@ const Testimonials = () => {
     dispatch(fetchAdminTestimonials());
   }, [dispatch]);
 
-  console.log(adminTestimonials)
+  // console.log(adminTestimonials)
 
   // Open modal function
   const openModal = (type, message) => {

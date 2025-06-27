@@ -31,7 +31,7 @@ const handleLogin = async (e) => {
   dispatch(adminLogin({ email, password }))
     .unwrap()
     .then((res) => {
-      console.log(res)
+      // console.log(res)
       openModal('success', res.message || 'Login successful!!!');
       setTimeout(() => {
               navigate('/admin/dashboard');

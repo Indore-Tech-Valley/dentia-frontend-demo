@@ -4,6 +4,7 @@ import {
   FaClipboardList, FaUserClock, FaBed, FaAmbulance,
   FaPills, FaStethoscope, FaHeartbeat, FaChartPie
 } from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -68,6 +69,7 @@ const StatCard = ({ icon, title, value, change, secondaryText }) => (
 const Dashboard = () => {
   const [timeRange, setTimeRange] = useState('6months');
   const [activeTab, setActiveTab] = useState('overview');
+  const navigate=useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
@@ -341,15 +343,18 @@ const Dashboard = () => {
             </h2>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { icon: <FaUserMd className="text-xl" />, label: 'Add Doctor', color: 'bg-blue-100 text-blue-600' },
-                { icon: <FaUsers className="text-xl" />, label: 'New Patient', color: 'bg-green-100 text-green-600' },
-                { icon: <FaCalendarCheck className="text-xl" />, label: 'Schedule', color: 'bg-purple-100 text-purple-600' },
-                { icon: <FaPills className="text-xl" />, label: 'Inventory', color: 'bg-orange-100 text-orange-600' },
-                { icon: <FaClipboardList className="text-xl" />, label: 'Reports', color: 'bg-red-100 text-red-600' },
-                { icon: <FaAmbulance className="text-xl" />, label: 'Emergency', color: 'bg-pink-100 text-pink-600' },
+                { icon: <FaUserMd className="text-xl" />, label: 'Add Doctor', color: 'bg-blue-100 text-blue-600',link:'/admin/doctors' },
+                { icon: <FaUsers className="text-xl" />, label: 'New Patient', color: 'bg-green-100 text-green-600',link:'/admin/patients' },
+                { icon: <FaCalendarCheck className="text-xl" />, label: 'Appointments', color: 'bg-purple-100 text-purple-600',link:'/admin/appointments' },
+                { icon: <FaPills className="text-xl" />, label: 'Services', color: 'bg-orange-100 text-orange-600',link:'/admin/services' },
+                { icon: <FaClipboardList className="text-xl" />, label: 'Reports', color: 'bg-red-100 text-red-600',link:'/admin/dashboard' },
+                { icon: <FaAmbulance className="text-xl" />, label: 'Events', color: 'bg-pink-100 text-pink-600',link:'/admin/events' },
               ].map((action, index) => (
                 <button
                   key={index}
+                  onClick={()=>{
+                    navigate(`${action.link}`)
+                  }}
                   className={`${action.color} p-3 rounded-lg hover:shadow-md transition-all flex flex-col items-center gap-2`}
                 >
                   {action.icon}

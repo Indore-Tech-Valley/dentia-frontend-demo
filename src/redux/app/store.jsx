@@ -10,6 +10,7 @@ import eventReducer from "../features/eventSlice/eventSlice";
 import doctorReducer from "../features/doctorSlice/doctorSlice"; // Uncomment if you have a doctor slice
 import adminReducer from "../features/adminSlice/adminSlice"; // Uncomment if you have an admin slice
 import websiteReducer from "../features/websiteSlice/websiteSlice"; // Uncomment if you have a website slice
+import patientsReducer from "../features/patientSlice/patientSlice"
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     doctor: doctorReducer,
     admin: adminReducer, 
     website: websiteReducer,
+    patients: patientsReducer
 
   },
 });

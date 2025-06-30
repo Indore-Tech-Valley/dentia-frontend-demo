@@ -104,10 +104,6 @@ const Newsletter = () => {
     return <div className="p-4">Loading subscribers...</div>;
   }
 
-  if (error) {
-    return <div className="p-4 text-red-500">Error: {error}</div>;
-  }
-
   return (
     <div className="p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Newsletter Subscribers</h1>

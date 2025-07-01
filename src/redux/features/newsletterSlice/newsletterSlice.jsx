@@ -29,6 +29,20 @@ export const fetchNewsletters = createAsyncThunk(
   }
 );
 
+// send mail to all
+export const sendNewsletterToAll = createAsyncThunk(
+  'newsletter/sendToAll',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await apiRequest('POST', `${ADMIN_NEWSLETTER_API}/send`, data, true);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+
 // DELETE: Remove Subscriber (Admin)
 export const deleteNewsletter = createAsyncThunk(
   'newsletter/delete',
@@ -49,11 +63,13 @@ const newsletterSlice = createSlice({
     loading: false,
     success: false,
     error: null,
+    message: null,
   },
   reducers: {
     clearNewsletterState: (state) => {
-      state.success = false;
-      state.error = null;
+  state.success = false;
+  state.error = null;
+  state.message = null;
     },
   },
   extraReducers: (builder) => {
@@ -84,6 +100,24 @@ const newsletterSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Send Newsletter to All
+.addCase(sendNewsletterToAll.pending, (state) => {
+  state.loading = true;
+  state.success = false;
+  state.error = null;
+  state.message = null;
+})
+.addCase(sendNewsletterToAll.fulfilled, (state, action) => {
+  state.loading = false;
+  state.success = true;
+  state.message = action.payload;
+})
+.addCase(sendNewsletterToAll.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+  state.success = false;
+})
 
       // Delete
       .addCase(deleteNewsletter.pending, (state) => {

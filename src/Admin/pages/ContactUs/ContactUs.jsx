@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchContacts,
   deleteContact,
-  updateContact
+  updateContact,
+  replyContact
 } from '../../../redux/features/contactSlice/contactSlice';
 import { useLocation } from "react-router-dom";
 import { useRef } from "react";
+import MessageModal from '../../../components/MessageModal/MessageModal'
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -15,6 +17,17 @@ const ContactUs = () => {
   const highlightId = location.state?.highlightId;
   const highlightRefMap = useRef({});
   const { contacts, loading, error } = useSelector((state) => state.contact);
+      const [modal, setModal] = useState({
+        show: false,
+        type: "success",
+        message: "",
+      });
+    
+      const openModal = (type, message) => {
+        setModal({ show: true, type, message });
+      };
+    
+      const closeModal = () => setModal({ ...modal, show: false });
 
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
@@ -22,6 +35,8 @@ const ContactUs = () => {
   const [replyText, setReplyText] = useState('');
   const [deleteId, setDeleteId] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [replySubject, setReplySubject] = useState('');
+
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -61,27 +76,44 @@ const ContactUs = () => {
     setShowConfirmModal(false);
   };
 
-  const handleReply = (contact) => {
-    setSelectedContact(contact);
-    setReplyText('');
-  };
+const handleReply = (contact) => {
+  setSelectedContact(contact);
+  setReplyText('');
+  setReplySubject(`Re: Regarding your message to Dentia`);
+};
 
-  const sendReply = () => {
-    if (!selectedContact || !replyText.trim()) return;
 
-    dispatch(
-      updateContact({
-        id: selectedContact._id,
-        data: { status: 'Resolved' },
-      })
-    );
+ const sendReply = () => {
+  if (!selectedContact || !replyText.trim() || !replySubject.trim()) return;
+  console.log(selectedContact)
+  dispatch(
+    replyContact({
+      id: selectedContact._id,
+      data: {
+        subject: replySubject,
+        message: replyText,
+      },
+    })
+  )
+    // .unwrap()
+    // .then(() => {
+      openModal('success',"Reply sent successfully");
+      setSelectedContact(null);
+      setReplyText('');
+      setReplySubject('');
+      dispatch(fetchContacts());
+    // })
+    // .catch((error) => {
+    //   openModal('error','Error in sending reply');
+    // });
+};
 
-    alert(`Reply sent to ${selectedContact.email}: ${replyText}`);
-    setSelectedContact(null);
-  };
 
   return (
     <div className="p-4">
+                     {modal.show && (
+        <MessageModal type={modal.type} message={modal.message} onClose={closeModal} />
+      )}
       <h1 className="text-2xl font-bold mb-6">Contact Messages</h1>
 
       {/* Filters */}
@@ -207,6 +239,18 @@ const ContactUs = () => {
               <p className="bg-gray-50 p-3 rounded">{selectedContact.message}</p>
             </div>
 
+            <div className="mb-4">
+  <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+  <input
+    type="text"
+    className="w-full border rounded p-2"
+    placeholder="Subject of your email"
+    value={replySubject}
+    onChange={(e) => setReplySubject(e.target.value)}
+  />
+</div>
+
+
             <textarea
               className="w-full border rounded p-3 mb-4"
               rows="4"
@@ -225,7 +269,7 @@ const ContactUs = () => {
               <button
                 onClick={sendReply}
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                disabled={!replyText.trim()}
+disabled={!replyText.trim() || !replySubject.trim()}
               >
                 Send Reply
               </button>

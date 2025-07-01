@@ -41,6 +41,26 @@ export const updateContact = createAsyncThunk(
   }
 );
 
+// Reply to a contact message by ID (admin)
+export const replyContact = createAsyncThunk(
+  'contact/reply',
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      console.log(id,data)
+      const response = await apiRequest(
+        'POST',
+        `${ADMIN_CONTACT_API_URL}/reply/${id}`,
+        data,
+        true
+      );
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+
 // Delete contact query by ID (admin)
 export const deleteContact = createAsyncThunk(
   'contact/delete',
@@ -130,7 +150,25 @@ const contactSlice = createSlice({
       .addCase(deleteContact.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      // Reply
+.addCase(replyContact.pending, (state) => {
+  state.loading = true;
+  state.success = false;
+})
+.addCase(replyContact.fulfilled, (state, action) => {
+  state.loading = false;
+  state.success = true;
+  const index = state.contacts.findIndex(c => c._id === action.payload.data._id);
+  if (index !== -1) {
+    state.contacts[index] = action.payload.data;
+  }
+})
+.addCase(replyContact.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+});
+
   },
 });
 

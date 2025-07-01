@@ -12,15 +12,19 @@ import {
   fetchNewsletters,
   subscribeNewsletter,
   deleteNewsletter,
+  sendNewsletterToAll
 } from "../../../redux/features/newsletterSlice/newsletterSlice";
 import MessageModal from "../../../components/MessageModal/MessageModal";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 import { useLocation } from "react-router-dom";
 import { useRef } from "react";
+import { Editor } from '@tinymce/tinymce-react';
+
 
 const Newsletter = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const editorRef = useRef(null);
   const highlightId = location.state?.highlightId;
   const highlightRefMap = useRef({});
   const { subscriptions, loading, error } = useSelector(
@@ -31,6 +35,7 @@ const Newsletter = () => {
   const [newSubscriber, setNewSubscriber] = useState({ name: "", email: "" });
   const [showAddForm, setShowAddForm] = useState(false);
   const [emailContent, setEmailContent] = useState("");
+  const [emailSubject, setEmailSubject] = useState('');
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -127,14 +132,27 @@ const Newsletter = () => {
     document.body.removeChild(link);
   };
 
-  const sendNewsletter = () => {
-    openModal(
-      "success",
-      `Newsletter sent to ${subscriptions.length} subscribers!`
-    );
-    setShowEmailModal(false);
-    setEmailContent("");
-  };
+const sendNewsletter = async() => {
+  if (!emailSubject.trim() || !emailContent.trim()) {
+    openModal('error', 'Please provide both subject and message.');
+    return;
+  }
+   const resultAction= await dispatch(sendNewsletterToAll({emailSubject,emailContent}));
+   if(sendNewsletterToAll.fulfilled.match(resultAction)){
+  openModal(
+    'success',
+    `Newsletter sent to ${subscriptions.length} subscribers!`
+  );
+  setShowEmailModal(false);
+  setEmailContent('');
+  setEmailSubject('');
+   }
+   else{
+    openModal('error', 'Failed to send newsletter');
+   }
+
+};
+
 
   if (loading) {
     return <div className="p-4">Loading subscribers...</div>;
@@ -346,19 +364,62 @@ const Newsletter = () => {
                 ✕
               </button>
             </div>
-            <div className="mb-4">
-              <p className="text-sm text-gray-600 mb-2">
-                This will send an email to all {subscriptions.length}{" "}
-                subscribers.
-              </p>
-              <textarea
-                value={emailContent}
-                onChange={(e) => setEmailContent(e.target.value)}
-                rows="8"
-                className="w-full p-3 border rounded"
-                placeholder="Write your newsletter content here..."
-              />
-            </div>
+      <div className="mb-4 space-y-4">
+  <p className="text-sm text-gray-600">
+    This will send an email to all {subscriptions.length} subscribers.
+  </p>
+
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">Subject *</label>
+    <input
+      type="text"
+      value={emailSubject}
+      onChange={(e) => setEmailSubject(e.target.value)}
+      className="w-full p-2 border rounded"
+      placeholder="Enter email subject"
+      required
+    />
+  </div>
+
+  {/* <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+    <textarea
+      value={emailContent}
+      onChange={(e) => setEmailContent(e.target.value)}
+      rows="6"
+      className="w-full p-3 border rounded"
+      placeholder="Write your newsletter content here..."
+      required
+    />
+  </div> */}
+<Editor
+  apiKey="dj5fo8fgjhq8opbgs7bajku271j0ubwwfl3q1yolinvcqujb"
+  onInit={(evt, editor) => (editorRef.current = editor)}
+  value={emailContent}
+  init={{
+    height: 400,
+    menubar: true,
+    plugins: [
+      'advlist autolink lists link image charmap preview anchor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table code help wordcount',
+      'emoticons autoresize codesample'
+    ],
+    toolbar:
+      'undo redo | blocks | bold italic underline forecolor backcolor | ' +
+      'alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist outdent indent | link image media | ' +
+      'emoticons codesample fullscreen preview | removeformat help',
+    content_style:
+      'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+    autoresize_bottom_margin: 20,
+    placeholder: 'Write your email content here...',
+    branding: false,
+  }}
+  onEditorChange={(newContent) => setEmailContent(newContent)}
+/>
+</div>
+
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => {
@@ -372,7 +433,7 @@ const Newsletter = () => {
               <button
                 onClick={sendNewsletter}
                 className="px-4 py-2 bg-purple-600 text-white rounded flex items-center gap-2"
-                disabled={!emailContent.trim()}
+                disabled={!emailSubject.trim() || !emailContent.trim()}
               >
                 <FiSend /> Send to All Subscribers
               </button>

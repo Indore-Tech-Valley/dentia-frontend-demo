@@ -16,6 +16,7 @@ import Testimonials from '../Admin/pages/Testimonials/Testimonials';
 import Services from '../Admin/pages/Services/Services';
 import Events from '../Admin/pages/Events/Events';
 import Admins from '../Admin/pages/AdminManagement/AdminManagement';
+import NotificationListener from '../Admin/components/NotificationListener/NotificationListener';
 import Cookies from 'js-cookie'; // Assuming you're using js-cookie for cookie management
 // Create placeholder components for missing routes
 const Settings = () => <div className="p-6"><h1 className="text-2xl font-bold">Settings</h1></div>;
@@ -24,6 +25,7 @@ const AdminRoutes = () => {
   const isAdminLoggedIn = Cookies.get("authToken"); // example
 
   return (
+    <>
     <Routes>
       {/* Public Auth Route */}
       <Route path="/admin" element={<Auth />} />
@@ -49,14 +51,16 @@ const AdminRoutes = () => {
           <Route path="/admin/newsletter" element={<Newsletter />} />
           <Route path="/admin/website" element={<WebsiteDetails />} />
           <Route path="/admin/settings" element={<Settings />} />
-          
           {/* Catch all - redirect to dashboard */}
           <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} />
         </Route>
       ) : (
         <Route path="*" element={<Navigate to="/admin" replace />} />
       )}
+
     </Routes>
+    <NotificationListener/>
+    </>
   );
 };
 

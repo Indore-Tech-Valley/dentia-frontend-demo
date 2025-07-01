@@ -1,22 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { FiMail, FiUser, FiTrash2, FiSearch, FiDownload, FiSend } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import {
+  FiMail,
+  FiUser,
+  FiTrash2,
+  FiSearch,
+  FiDownload,
+  FiSend,
+} from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchNewsletters,
   subscribeNewsletter,
   deleteNewsletter,
-} from '../../../redux/features/newsletterSlice/newsletterSlice';
-import MessageModal from '../../../components/MessageModal/MessageModal';
-import DeleteConfirmation from '../../components/DeleteConfirmation/DeleteConfirmation';
+} from "../../../redux/features/newsletterSlice/newsletterSlice";
+import MessageModal from "../../../components/MessageModal/MessageModal";
+import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
+import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 const Newsletter = () => {
   const dispatch = useDispatch();
-  const { subscriptions, loading, error } = useSelector((state) => state.newsletter);
+  const location = useLocation();
+  const highlightId = location.state?.highlightId;
+  const highlightRefMap = useRef({});
+  const { subscriptions, loading, error } = useSelector(
+    (state) => state.newsletter
+  );
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [newSubscriber, setNewSubscriber] = useState({ name: '', email: '' });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [newSubscriber, setNewSubscriber] = useState({ name: "", email: "" });
   const [showAddForm, setShowAddForm] = useState(false);
-  const [emailContent, setEmailContent] = useState('');
+  const [emailContent, setEmailContent] = useState("");
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -29,6 +43,22 @@ const Newsletter = () => {
   useEffect(() => {
     dispatch(fetchNewsletters());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (highlightId && highlightRefMap.current[highlightId]) {
+      highlightRefMap.current[highlightId].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+
+      // Clear the highlight from history state after 5s
+      const timer = setTimeout(() => {
+        window.history.replaceState({}, "");
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [highlightId]);
 
   const openModal = (type, message) => {
     setModal({ show: true, type, message });
@@ -53,12 +83,12 @@ const Newsletter = () => {
   const handleAddSubscriber = async () => {
     try {
       await dispatch(subscribeNewsletter(newSubscriber));
-      openModal('success', 'Subscriber added successfully');
-      setNewSubscriber({ name: '', email: '' });
+      openModal("success", "Subscriber added successfully");
+      setNewSubscriber({ name: "", email: "" });
       setShowAddForm(false);
       dispatch(fetchNewsletters());
     } catch (err) {
-      openModal('error', 'Failed to add subscriber');
+      openModal("error", "Failed to add subscriber");
     }
   };
 
@@ -70,34 +100,40 @@ const Newsletter = () => {
   const confirmDelete = async () => {
     try {
       await dispatch(deleteNewsletter(deleteId));
-      openModal('success', 'Subscriber deleted successfully');
+      openModal("success", "Subscriber deleted successfully");
       setShowConfirmModal(false);
     } catch (err) {
-      openModal('error', 'Failed to delete subscriber');
+      openModal("error", "Failed to delete subscriber");
     }
   };
 
   const exportToCSV = () => {
-    const headers = ['Name', 'Email', 'Subscription Date'];
+    const headers = ["Name", "Email", "Subscription Date"];
     const csvContent = [
-      headers.join(','),
-      ...subscriptions.map((s) => `${s.name},${s.email},${new Date(s.createdAt).toLocaleDateString()}`),
-    ].join('\n');
+      headers.join(","),
+      ...subscriptions.map(
+        (s) =>
+          `${s.name},${s.email},${new Date(s.createdAt).toLocaleDateString()}`
+      ),
+    ].join("\n");
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = url;
-    link.setAttribute('download', 'newsletter_subscribers.csv');
+    link.setAttribute("download", "newsletter_subscribers.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   const sendNewsletter = () => {
-    openModal('success', `Newsletter sent to ${subscriptions.length} subscribers!`);
+    openModal(
+      "success",
+      `Newsletter sent to ${subscriptions.length} subscribers!`
+    );
     setShowEmailModal(false);
-    setEmailContent('');
+    setEmailContent("");
   };
 
   if (loading) {
@@ -129,16 +165,19 @@ const Newsletter = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <button 
+        <button
           onClick={() => {
             setShowAddForm(true);
-            setNewSubscriber({ name: '', email: '' });
-          }} 
+            setNewSubscriber({ name: "", email: "" });
+          }}
           className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"
         >
           <FiUser /> Add Subscriber
         </button>
-        <button onClick={exportToCSV} className="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2">
+        <button
+          onClick={exportToCSV}
+          className="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"
+        >
           <FiDownload /> Export CSV
         </button>
         <button
@@ -156,41 +195,45 @@ const Newsletter = () => {
           <h2 className="text-lg font-semibold mb-4">Add New Subscriber</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
-              <input 
-                type="text" 
-                name="name" 
-                value={newSubscriber.name} 
-                onChange={handleInputChange} 
-                className="w-full p-2 border rounded" 
-                placeholder="Enter name" 
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Name *
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={newSubscriber.name}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                placeholder="Enter name"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-              <input 
-                type="email" 
-                name="email" 
-                value={newSubscriber.email} 
-                onChange={handleInputChange} 
-                className="w-full p-2 border rounded" 
-                placeholder="Enter email" 
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email *
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={newSubscriber.email}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                placeholder="Enter email"
                 required
               />
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <button 
+            <button
               onClick={() => {
                 setShowAddForm(false);
-                setNewSubscriber({ name: '', email: '' });
-              }} 
+                setNewSubscriber({ name: "", email: "" });
+              }}
               className="px-4 py-2 border rounded text-gray-700"
             >
               Cancel
             </button>
-            <button 
+            <button
               onClick={handleAddSubscriber}
               className="px-4 py-2 bg-blue-600 text-white rounded"
               disabled={!newSubscriber.name || !newSubscriber.email}
@@ -207,16 +250,36 @@ const Newsletter = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscribed On</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Subscribed On
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredSubscribers.length > 0 ? (
-                filteredSubscribers.map((subscriber) => (
-                  <tr key={subscriber._id} className="hover:bg-gray-50">
+              {filteredSubscribers?.length > 0 ? (
+                filteredSubscribers?.map((subscriber) => (
+                  <tr
+                    key={subscriber._id}
+                    ref={(el) => {
+                      if (subscriber._id === highlightId) {
+                        highlightRefMap.current[subscriber._id] = el;
+                      }
+                    }}
+                    className={` bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border   ${
+                      subscriber._id === highlightId
+                        ? "border-yellow-400 bg-yellow-50 animate-pulse"
+                        : "border-gray-100 hover:shadow-lg"
+                    } transition-all duration-300 hover:scale-[1.02]`}
+                  >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <FiUser className="mr-2 text-gray-500" />
@@ -233,7 +296,7 @@ const Newsletter = () => {
                       {new Date(subscriber.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button 
+                      <button
                         onClick={() => handleDeleteClick(subscriber._id)}
                         className="text-red-600 hover:text-red-900"
                         title="Delete"
@@ -245,7 +308,10 @@ const Newsletter = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                  <td
+                    colSpan="4"
+                    className="px-6 py-4 text-center text-gray-500"
+                  >
                     No subscribers found
                   </td>
                 </tr>
@@ -270,10 +336,21 @@ const Newsletter = () => {
           <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Send Newsletter</h2>
-              <button onClick={() => { setShowEmailModal(false); setEmailContent(''); }} className="text-gray-500 hover:text-gray-700">✕</button>
+              <button
+                onClick={() => {
+                  setShowEmailModal(false);
+                  setEmailContent("");
+                }}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
             </div>
             <div className="mb-4">
-              <p className="text-sm text-gray-600 mb-2">This will send an email to all {subscriptions.length} subscribers.</p>
+              <p className="text-sm text-gray-600 mb-2">
+                This will send an email to all {subscriptions.length}{" "}
+                subscribers.
+              </p>
               <textarea
                 value={emailContent}
                 onChange={(e) => setEmailContent(e.target.value)}
@@ -283,8 +360,20 @@ const Newsletter = () => {
               />
             </div>
             <div className="flex justify-end gap-2">
-              <button onClick={() => { setShowEmailModal(false); setEmailContent(''); }} className="px-4 py-2 border rounded text-gray-700">Cancel</button>
-              <button onClick={sendNewsletter} className="px-4 py-2 bg-purple-600 text-white rounded flex items-center gap-2" disabled={!emailContent.trim()}>
+              <button
+                onClick={() => {
+                  setShowEmailModal(false);
+                  setEmailContent("");
+                }}
+                className="px-4 py-2 border rounded text-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={sendNewsletter}
+                className="px-4 py-2 bg-purple-600 text-white rounded flex items-center gap-2"
+                disabled={!emailContent.trim()}
+              >
                 <FiSend /> Send to All Subscribers
               </button>
             </div>

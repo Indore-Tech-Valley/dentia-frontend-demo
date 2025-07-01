@@ -31,12 +31,18 @@ import {
   deleteAppointment,
   updateAppointment,
 } from "../../../redux/features/appointmentSlice/appointmentSlice";
+import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 const timeSlots = ["9", "10", "11", "12", "13", "14", "15", "16", "17", "18"];
 
 const Appointments = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const highlightId = location.state?.highlightId;
+  const highlightRefMap = useRef({});
+
   const { appointments, loading, error } = useSelector(
     (state) => state.appointment
   );
@@ -81,6 +87,22 @@ const Appointments = () => {
     dispatch(fetchAppointments());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (highlightId && highlightRefMap.current[highlightId]) {
+      highlightRefMap.current[highlightId].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+
+      // Clear the highlight from history state after 5s
+      const timer = setTimeout(() => {
+        window.history.replaceState({}, "");
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [highlightId]);
+
   const handleEdit = (appointment) => {
     setCurrentAppointment(appointment);
     setForm({
@@ -117,7 +139,6 @@ const Appointments = () => {
       );
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -465,7 +486,18 @@ const Appointments = () => {
           {paginated.map((appointment) => (
             <div
               key={appointment._id}
-              className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+              ref={(el) => {
+                if (appointment._id === highlightId) {
+                  highlightRefMap.current[appointment._id] = el;
+                }
+              }}
+              className={`bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border
+    ${
+      appointment._id === highlightId
+        ? "border-yellow-400 bg-yellow-50 animate-pulse"
+        : "border-gray-100 hover:shadow-lg"
+    }
+    transition-all duration-300 hover:scale-[1.02]`}
             >
               <div className="flex justify-between items-start mb-4">
                 <div className="bg-gradient-to-br from-purple-100 to-pink-100 p-2 md:p-3 rounded-lg md:rounded-xl">

@@ -81,7 +81,7 @@ const Dashboard = () => {
             <p className="text-gray-600">Comprehensive overview of clinic operations</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
-            <select 
+            {/* <select 
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
               className="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm"
@@ -89,7 +89,7 @@ const Dashboard = () => {
               <option value="3months">Last 3 Months</option>
               <option value="6months">Last 6 Months</option>
               <option value="12months">Last 12 Months</option>
-            </select>
+            </select> */}
             <div className="flex border border-gray-300 rounded-md overflow-hidden">
               <button 
                 className={`px-3 py-2 text-sm ${activeTab === 'overview' ? 'bg-blue-600 text-white' : 'bg-white'}`}

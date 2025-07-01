@@ -6,9 +6,14 @@ import {
   deleteContact,
   updateContact
 } from '../../../redux/features/contactSlice/contactSlice';
+import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 const ContactUs = () => {
   const dispatch = useDispatch();
+    const location = useLocation();
+  const highlightId = location.state?.highlightId;
+  const highlightRefMap = useRef({});
   const { contacts, loading, error } = useSelector((state) => state.contact);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,6 +26,22 @@ const ContactUs = () => {
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
+
+      useEffect(() => {
+    if (highlightId && highlightRefMap.current[highlightId]) {
+      highlightRefMap.current[highlightId].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+  
+      // Clear the highlight from history state after 5s
+      const timer = setTimeout(() => {
+        window.history.replaceState({}, "");
+      }, 5000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [highlightId]);
 
   const filteredContacts = contacts?.filter((contact) => {
     const matchesSearch =
@@ -104,7 +125,18 @@ const ContactUs = () => {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {filteredContacts.map((contact) => (
-                <tr key={contact._id} className="hover:bg-gray-50">
+                <tr key={contact._id}
+                  ref={(el) => {
+    if (contact._id === highlightId) {
+      highlightRefMap.current[contact._id] = el;
+    }
+  }}
+  className={`bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border
+    ${contact._id === highlightId
+      ? "border-yellow-400 bg-yellow-50 animate-pulse"
+      : "border-gray-100 hover:shadow-lg"}
+    transition-all duration-300 hover:scale-[1.02]`}
+               >
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <FiUser className="mr-2 text-gray-500" />

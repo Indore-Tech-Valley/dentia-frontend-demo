@@ -1,28 +1,74 @@
 // AdminTopbar.jsx
-import React,{useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaBell, FaEnvelope, FaUserCircle, FaPlus, FaSearch, FaGlobe,FaBars ,FaAngleDown,FaCog,FaMoon,FaSignOutAlt   } from 'react-icons/fa';
-import { getLoggedIn } from '../../../redux/features/adminSlice/adminSlice';
-import { useDispatch,useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
+import {
+  FaBell,
+  FaEnvelope,
+  FaUserCircle,
+  FaPlus,
+  FaSearch,
+  FaGlobe,
+  FaBars,
+  FaAngleDown,
+  FaCog,
+  FaMoon,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import { getLoggedIn } from "../../../redux/features/adminSlice/adminSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchNotifications,
+  markAllSeen,
+} from "../../../redux/features/notificationSlice/notificationSlice";
 
 const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const dispatch = useDispatch();
-  const {admin} =useSelector((state)=>state.admin)
+  const { admin } = useSelector((state) => state.admin);
+  const { list: notifications } = useSelector((state) => state.notification);
+
   // console.log(admin)
 
-  useEffect(()=>{
-    dispatch(getLoggedIn())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(getLoggedIn());
+    dispatch(fetchNotifications());
+  }, [dispatch]);
+
+  const handleNotificationClick = (notif) => {
+    const message = notif.message.toLowerCase();
+
+    if (/new appointment from/i.test(message)) {
+      navigate("/admin/appointments", {
+        state: { highlightId: notif.referenceId },
+      });
+    } else if (/new query from/i.test(message)) {
+      navigate("/admin/contact", { state: { highlightId: notif.referenceId } });
+    } else if (/new feedback from/i.test(message)) {
+      navigate("/admin/feedback", {
+        state: { highlightId: notif.referenceId },
+      });
+    } else if (/new newsletter subscription from/i.test(message)) {
+      navigate("/admin/newsletter", {
+        state: { highlightId: notif.referenceId },
+      });
+    } else {
+      navigate("/admin/dashboard");
+    }
+  };
+
+  // console.log( 'notifications',notifications);
 
   return (
-    <header 
+    <header
       className={`fixed top-0 right-0 z-30 h-16 bg-white/80 backdrop-blur-lg border-b border-gray-200 shadow-sm transition-all duration-300 flex items-center justify-between px-6 ${
-        sidebarOpen ? 'left-64' : 'left-16'
+        sidebarOpen ? "left-64" : "left-16"
       }`}
-      style={{ fontFamily: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}
+      style={{
+        fontFamily: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      }}
     >
       {/* Left Section - Search & Toggle */}
       <div className="flex items-center gap-4">
@@ -32,7 +78,7 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
         >
           <FaBars className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
         </button>
-        
+
         <div className="relative">
           <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-2 w-80 border border-gray-200 focus-within:border-blue-400 focus-within:bg-white transition-all duration-200">
             <FaSearch className="text-gray-400 w-4 h-4" />
@@ -52,8 +98,9 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
       <div className="flex items-center gap-4">
         {/* Quick Actions */}
         <button
-        onClick={() => navigate('/admin/newAdmin')}
-        className="p-2 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors duration-200 group">
+          onClick={() => navigate("/admin/newAdmin")}
+          className="p-2 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors duration-200 group"
+        >
           <FaPlus className="w-4 h-4 text-blue-600 group-hover:scale-110 transition-transform duration-200" />
         </button>
 
@@ -64,44 +111,59 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group relative"
           >
             <FaBell className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
-              <span className="text-xs text-white font-bold">3</span>
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+              <span className="text-xs text-white font-bold">
+                {notifications?.filter((n) => !n.seen)?.length}
+              </span>
             </div>
           </button>
-          
+
           {notificationOpen && (
             <div className="absolute right-0 top-12 w-80 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-              <div className="px-4 py-2 border-b border-gray-100">
-                <h3 className="text-sm font-semibold text-gray-800">Notifications</h3>
-              </div>
-              <div className="py-2">
-                <div className="px-4 py-3 hover:bg-gray-50 cursor-pointer">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="text-sm text-gray-800">New appointment scheduled</p>
-                      <p className="text-xs text-gray-500">Dr. Smith - 2:30 PM</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="px-4 py-3 hover:bg-gray-50 cursor-pointer">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="text-sm text-gray-800">Patient record updated</p>
-                      <p className="text-xs text-gray-500">John Doe - Medical history</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="px-4 py-3 hover:bg-gray-50 cursor-pointer">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="text-sm text-gray-800">Low inventory alert</p>
-                      <p className="text-xs text-gray-500">Paracetamol - 5 units left</p>
-                    </div>
-                  </div>
-                </div>
+              <button
+                onClick={() => {dispatch(markAllSeen())
+
+                  dispatch(fetchNotifications())
+                }}
+                className="text-blue-500 hover:underline text-sm float-right mr-4"
+              >
+                <FaEye size={20} className="inline-block mr-1 mb-2" />
+              </button>
+              <div className="px-4 py-3  mt-2 border-b border-gray-100">
+                {notifications?.filter((n) => !n.seen)?.length === 0 ? (
+                  <p className="text-sm text-center text-gray-500 px-4 py-2">
+                    No notifications
+                  </p>
+                ) : (
+                  notifications
+                    ?.filter((n) => !n.seen)
+                    ?.map((notif, index) => (
+                      <div
+                        key={notif._id || index}
+                        className="px-4 py-3 hover:bg-gray-100 cursor-pointer transition"
+                        onClick={() => handleNotificationClick(notif)}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div
+                            className="w-2 h-2 rounded-full mt-2"
+                            style={{
+                              backgroundColor: notif.seen
+                                ? "#d1d5db"
+                                : "#3b82f6",
+                            }}
+                          ></div>
+                          <div>
+                            <p className="text-sm text-gray-800">
+                              {notif?.message}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {new Date(notif.createdAt).toLocaleString()}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                )}{" "}
               </div>
             </div>
           )}
@@ -125,10 +187,16 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
               <FaUserCircle className="w-5 h-5 text-white" />
             </div>
             <div className="text-left">
-              <p className="text-sm font-medium text-gray-800">{admin?.email}</p>
+              <p className="text-sm font-medium text-gray-800">
+                {admin?.email}
+              </p>
               <p className="text-xs text-gray-500">{admin?.role}</p>
             </div>
-            <FaAngleDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+            <FaAngleDown
+              className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${
+                dropdownOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
 
           {/* {dropdownOpen && (

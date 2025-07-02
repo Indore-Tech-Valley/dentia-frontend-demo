@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const ReadyToBook = () => {
   return (
     <div>
-      <div className="bg-blue-600 py-10">
+      <div className="bg-blue-950 py-10">
       <div className=" px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-white">
         {/* Left Text */}
         <h2 className="text-2xl md:text-3xl font-semibold text-center md:text-left mb-4 md:mb-0">
@@ -20,7 +20,7 @@ const ReadyToBook = () => {
           style={{ textDecoration: 'none' }}
         >
           {/* Outer layer with border + top text */}
-          <span className="border border-white rounded-lg absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:border-transparent group-hover:bg-[#001F5B]">
+          <span className="border border-white rounded-lg absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:border-transparent group-hover:bg-blue-700">
             {/* Text that slides up AND fades out */}
             <span className="transition-all duration-300 group-hover:-translate-y-full group-hover:opacity-0">
               Book Appointment

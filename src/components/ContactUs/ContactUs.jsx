@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   FiPhone,
   FiMail,
@@ -61,19 +61,19 @@ const ContactUs = () => {
     message: "",
   });
 
-  const {loading, error} = useSelector((state) => state.contact);
-  
-    const [modal, setModal] = useState({
-      show: false,
-      type: "success",
-      message: "",
-    });
-  
-    const openModal = (type, message) => {
-      setModal({ show: true, type, message });
-    };
-  
-    const closeModal = () => setModal({ ...modal, show: false });
+  const { loading, error } = useSelector((state) => state.contact);
+
+  const [modal, setModal] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
+
+  const openModal = (type, message) => {
+    setModal({ show: true, type, message });
+  };
+
+  const closeModal = () => setModal({ ...modal, show: false });
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -90,18 +90,29 @@ const ContactUs = () => {
     try {
       const result = await dispatch(createContact(formData));
       if (createContact.fulfilled.match(result)) {
-        openModal("success", result.payload.message || "Contact form submitted successfully!");
+        openModal(
+          "success",
+          result.payload.message || "Contact form submitted successfully!"
+        );
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
-        openModal("error", result.payload || "Failed to submit contact form");}
+        openModal("error", result.payload || "Failed to submit contact form");
+      }
     } catch (err) {
-
-      openModal("error", "An error occurred while submitting the contact form.");}
+      openModal(
+        "error",
+        "An error occurred while submitting the contact form."
+      );
+    }
   };
   return (
     <section className="bg-white py-16 px-4">
-               {modal.show && (
-        <MessageModal type={modal.type} message={modal.message} onClose={closeModal} />
+      {modal.show && (
+        <MessageModal
+          type={modal.type}
+          message={modal.message}
+          onClose={closeModal}
+        />
       )}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Left Column */}
@@ -186,10 +197,13 @@ const ContactUs = () => {
 
         {/* Right Column: Contact Form */}
         <div className="bg-[#f3f6fd] p-8 rounded-xl shadow">
-                  <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block mb-1 text-gray-700 font-medium">
+                <label
+                  htmlFor="name"
+                  className="block mb-1 text-gray-700 font-medium"
+                >
                   Name
                 </label>
                 <input
@@ -204,7 +218,10 @@ const ContactUs = () => {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block mb-1 text-gray-700 font-medium">
+                <label
+                  htmlFor="email"
+                  className="block mb-1 text-gray-700 font-medium"
+                >
                   Email
                 </label>
                 <input
@@ -221,7 +238,10 @@ const ContactUs = () => {
             </div>
 
             <div>
-              <label htmlFor="phone" className="block mb-1 text-gray-700 font-medium">
+              <label
+                htmlFor="phone"
+                className="block mb-1 text-gray-700 font-medium"
+              >
                 Phone
               </label>
               <input
@@ -237,7 +257,10 @@ const ContactUs = () => {
             </div>
 
             <div>
-              <label htmlFor="message" className="block mb-1 text-gray-700 font-medium">
+              <label
+                htmlFor="message"
+                className="block mb-1 text-gray-700 font-medium"
+              >
                 Message
               </label>
               <textarea

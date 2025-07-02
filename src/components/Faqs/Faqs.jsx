@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchFaqs } from "../../redux/features/faqSlice/faqSlice";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
+import { GoChevronRight } from "react-icons/go";
+
 
 export default function FAQs() {
   const [openIndex, setOpenIndex] = useState(null);
@@ -74,12 +76,12 @@ export default function FAQs() {
               ))}
 
               {faqs.length > 5 && (
-                <div className="pt-6 text-center">
+                <div className="pt-2 text-right">
                   <button
                     onClick={() => setShowAll((prev) => !prev)}
-                    className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-[#10244b] transition duration-200"
+                    className=" text-blue-600 font-semibold  rounded-lg hover:text-[#10244b] transition duration-200 flex gap-2 items-center"
                   >
-                    {showAll ? "Hide FAQs" : "View All FAQs"}
+                    {showAll ? "Hide FAQs" : "View All FAQs"} <GoChevronRight size={20} className="font-semibold"/>
                   </button>
                 </div>
               )}

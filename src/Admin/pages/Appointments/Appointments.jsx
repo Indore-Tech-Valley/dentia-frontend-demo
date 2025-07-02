@@ -20,6 +20,7 @@ import {
   MdDateRange,
   MdAccessTime,
   MdPersonPin,
+  MdMedicalServices 
 } from "react-icons/md";
 import { fetchAppointments } from "../../../redux/features/appointmentSlice/appointmentSlice";
 import { fetchServices } from "../../../redux/features/servicesSlice/servicesSlice";
@@ -527,6 +528,10 @@ const Appointments = () => {
                 <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600">
                   <FaPhone className="text-purple-500 text-xs md:text-sm" />
                   <span className="truncate">{appointment.phone}</span>
+                </div>
+                <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600">
+                  <MdMedicalServices  className="text-purple-500 text-xs md:text-sm" />
+                  <span className="truncate">{appointment.service}</span>
                 </div>
                 {appointment.message && (
                   <div className="flex items-start gap-2 md:gap-3 text-xs md:text-sm text-gray-600">

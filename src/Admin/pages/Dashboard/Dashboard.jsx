@@ -295,9 +295,9 @@ const Dashboard = () => {
         </div>
 
         {/* Recent Activity and Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
           {/* Recent Activity */}
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 lg:col-span-2">
+          {/* <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 lg:col-span-2">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <FaClipboardList className="text-orange-500" />
               Recent Activity
@@ -333,7 +333,7 @@ const Dashboard = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
 
           {/* Quick Actions */}
           <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
@@ -341,7 +341,7 @@ const Dashboard = () => {
               <FaPills className="text-indigo-500" />
               Quick Actions
             </h2>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {[
                 { icon: <FaUserMd className="text-xl" />, label: 'Add Doctor', color: 'bg-blue-100 text-blue-600',link:'/admin/doctors' },
                 { icon: <FaUsers className="text-xl" />, label: 'New Patient', color: 'bg-green-100 text-green-600',link:'/admin/patients' },
@@ -364,6 +364,14 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+       
+            <footer className="">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500">
+        <span>&copy; {new Date().getFullYear()} Clinic Management Admin Panel</span>
+        <span className="mt-2 sm:mt-0">Built with ❤️ by Admin Team</span>
+      </div>
+    </footer>
       </div>
     </div>
   );

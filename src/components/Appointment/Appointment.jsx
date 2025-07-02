@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import MessageModal from "../MessageModal/MessageModal";
 import { createAppointment } from "../../redux/features/appointmentSlice/appointmentSlice";
+import {fetchServices} from '../../redux/features/servicesSlice/servicesSlice';
 
 const Appointment = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Appointment = () => {
 });
 
   const { loading, error } = useSelector((state) => state.appointment);
+    const {services} = useSelector((state) => state.service);
 
   const [modal, setModal] = useState({
     show: false,
@@ -33,7 +35,9 @@ const Appointment = () => {
 
   const closeModal = () => setModal({ ...modal, show: false });
 
-
+  useEffect(()=>{
+     dispatch(fetchServices());
+  },[dispatch])
 
 const handleChange = (e) => {
   const { name, value } = e.target;
@@ -101,26 +105,33 @@ const handleSubmit = async (e) => {
                 required
                 >
                   <option value={``}>Select Service</option>
-                  <option value={`clean`}>Cleaning</option>
-                  <option value={`Root`}>Root Canal</option>
+                  {
+                    services?.map((service, index) =>
+                    {
+                       return <option value={service.title}>{service.title}</option>
+                    })
+                  }
+                  
+                 
                 </select>
               </div>
 
               <div className="flex gap-4">
                 <div className="w-1/2">
-                  <label htmlFor="date" className="block mb-1 text-gray-700 font-medium">
-                    Date
-                  </label>
-                  <input
-                    id="date"
-                    name="date"
+     <label htmlFor="date" className="block mb-1 text-gray-700 font-medium">
+  Date
+</label>
+<input
+  id="date"
+  name="date"
   type="date"
   value={formData.date}
   onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md px-4 py-3"
-                    required
-                    // defaultValue={new Date().toISOString().split("T")[0]}
-                  />
+  className="w-full border border-gray-300 rounded-md px-4 py-3"
+  required
+  min={new Date().toISOString().split("T")[0]} // disables past dates
+/>
+
                 </div>
                 <div className="w-1/2">
                   <label htmlFor="time" className="block mb-1 text-gray-700 font-medium">

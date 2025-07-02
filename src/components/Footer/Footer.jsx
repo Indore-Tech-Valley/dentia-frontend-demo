@@ -17,6 +17,8 @@ import { MdOutlineShield } from "react-icons/md";
 import { LiaTeethSolid } from "react-icons/lia";
 import logo from '../Navbar/Logo/WhiteLogo.png';
 import { useDispatch,useSelector } from "react-redux";
+import { useEffect } from "react";
+import {fetchServices} from '../../redux/features/servicesSlice/servicesSlice'
 
 
 
@@ -62,7 +64,12 @@ import { useDispatch,useSelector } from "react-redux";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {services, loading, error} = useSelector((state) => state.service);
+
+  useEffect(()=>{
+     dispatch(fetchServices());
+  },[dispatch])
 
   // Handle smooth scroll navigation
   const handleLinkClick = (id) => {
@@ -117,9 +124,9 @@ const Footer = () => {
               <h4 className="text-white font-semibold text-xl mb-4">Our Services</h4>
               <ul className="space-y-2 text-gray-300 text-[16px]">
               {services?.slice(0,6)?.map((e)=>(
-                 <li key={e.id}>
+                 <li key={e._id}>
                   <button
-                    onClick={() => handleLinkClick(e.id)}
+                    onClick={() => handleLinkClick(e._id)}
                     className="hover:text-white"
                   >
                     {e.title}

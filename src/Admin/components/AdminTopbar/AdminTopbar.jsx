@@ -21,6 +21,7 @@ import {
   fetchNotifications,
   markAllSeen,
 } from "../../../redux/features/notificationSlice/notificationSlice";
+import Cookies from "js-cookie";
 
 const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
@@ -36,6 +37,11 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
     dispatch(getLoggedIn());
     dispatch(fetchNotifications());
   }, [dispatch]);
+
+    const handleLogout = () => {
+       Cookies.remove('authToken'); // Assuming you are using js-cookie to manage cookies
+       navigate('/admin');
+    };
 
   const handleNotificationClick = (notif) => {
     const message = notif.message.toLowerCase();
@@ -121,9 +127,13 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
           {notificationOpen && (
             <div className="absolute right-0 top-12 w-80 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
               <button
-                onClick={() => {dispatch(markAllSeen())
-
+                onClick={() => {
+                  dispatch(markAllSeen())
                   dispatch(fetchNotifications())
+                  setNotificationOpen(!notificationOpen)
+                  // setTimeout(()=>{
+                  //   window.location.reload()
+                  // },1000)
                 }}
                 className="text-blue-500 hover:underline text-sm float-right mr-4"
               >
@@ -199,33 +209,28 @@ const AdminTopbar = ({ sidebarOpen, setSidebarOpen }) => {
             />
           </button>
 
-          {/* {dropdownOpen && (
+          {dropdownOpen && (
             <div className="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
               <div className="px-4 py-3 border-b border-gray-100">
                 <p className="text-sm font-medium text-gray-800">{admin?.email}</p>
                 <p className="text-xs text-gray-500">{admin?.role}</p>
               </div>
               <div className="py-2">
-                <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
-                  <FaUserCircle className="w-4 h-4" />
-                  Profile Settings
-                </button>
-                <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
-                  <FaCog className="w-4 h-4" />
-                  Preferences
-                </button>
+             
                 <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                   <FaMoon className="w-4 h-4" />
                   Dark Mode
                 </button>
                 <div className="border-t border-gray-100 my-2"></div>
-                <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200">
+                <button 
+                onClick={()=>handleLogout()}
+                className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200">
                   <FaSignOutAlt className="w-4 h-4" />
                   Sign Out
                 </button>
               </div>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </header>

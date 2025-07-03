@@ -5,6 +5,7 @@ import { apiRequest } from '../../../utils/utils';
 
 const API_URL = ADMIN_PATIENT_API;
 
+
 // Async Thunks
 export const fetchPatients = createAsyncThunk('patients/fetchAll', async (_, thunkAPI) => {
   try {
@@ -14,6 +15,18 @@ export const fetchPatients = createAsyncThunk('patients/fetchAll', async (_, thu
     return thunkAPI.rejectWithValue(err.message);
   }
 });
+
+export const fetchPatientByCode = createAsyncThunk(
+  'patients/fetchByCode',
+  async (code, thunkAPI) => {
+    try {
+      const res = await apiRequest('GET', `http://localhost:8000/api/patients/${code}`, null, false);
+      return res; // assuming response is { success: true, data: {...} }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
 
 export const createPatient = createAsyncThunk('patients/create', async (data, thunkAPI) => {
   try {
@@ -57,6 +70,7 @@ const patientSlice = createSlice({
   name: 'patients',
   initialState: {
     patients: [],
+    selectedPatient: null, // ← new
     stats: null,
     loading: false,
     error: null,
@@ -76,6 +90,22 @@ const patientSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Fetch by patientCode
+.addCase(fetchPatientByCode.pending, (state) => {
+  state.loading = true;
+  state.selectedPatient = null;
+  state.error = null;
+})
+.addCase(fetchPatientByCode.fulfilled, (state, action) => {
+  state.loading = false;
+  state.selectedPatient = action.payload;
+})
+.addCase(fetchPatientByCode.rejected, (state, action) => {
+  state.loading = false;
+  state.selectedPatient = null;
+  state.error = action.payload;
+})
 
       // Create
       .addCase(createPatient.fulfilled, (state, action) => {

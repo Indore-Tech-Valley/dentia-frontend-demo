@@ -7,6 +7,8 @@ import TermsConditions from '../pages/TermsConditions/TermsConditions';
 import PrivacyPolicy from '../pages/PrivacyPolicy/PrivacyPolicy';
 import ServicePage from '../pages/ServicePage/ServicePage';
 import ContactPage from '../pages/ContactPage/ContactUsPage';
+import Reports from '../pages/Reports/Reports';
+
 
 
 const Index = () => {
@@ -19,6 +21,7 @@ const Index = () => {
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/services" element={<ServicePage/>} />
       <Route path="/contact" element={<ContactPage/>} />
+      <Route path="/download/reports" element={<Reports/>} />
     </Routes>
   );
 };

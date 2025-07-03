@@ -12,6 +12,8 @@ import adminReducer from "../features/adminSlice/adminSlice"; // Uncomment if yo
 import websiteReducer from "../features/websiteSlice/websiteSlice"; // Uncomment if you have a website slice
 import patientsReducer from "../features/patientSlice/patientSlice"
 import notificationReducer from "../features/notificationSlice/notificationSlice"
+import reportsReducer from "../features/reportsSlice/reportsSlice"
+import dashboardreducer from "../features/dashboardSummarySlice/dashboardSummarySlice"
 
 export const store = configureStore({
   reducer: {
@@ -27,7 +29,9 @@ export const store = configureStore({
     admin: adminReducer, 
     website: websiteReducer,
     patients: patientsReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    reports: reportsReducer,
+    dashboard: dashboardreducer,
 
   },
 });

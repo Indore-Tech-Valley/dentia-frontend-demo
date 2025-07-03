@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   FaUserMd, FaUsers, FaCalendarCheck, FaMoneyBillWave, 
   FaClipboardList, FaUserClock, FaBed, FaAmbulance,
@@ -10,6 +10,8 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   AreaChart, Area, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from 'recharts';
+import {fetchDashboardSummary} from '../../../redux/features/dashboardSummarySlice/dashboardSummarySlice'
+import {useDispatch, useSelector} from 'react-redux'
 
 // Sample data
 const appointmentData = [
@@ -70,6 +72,13 @@ const Dashboard = () => {
   const [timeRange, setTimeRange] = useState('6months');
   const [activeTab, setActiveTab] = useState('overview');
   const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const {summary,loading,error} =useSelector((state)=>state.dashboard)
+  console.log(summary)
+  useEffect(()=>{
+     dispatch(fetchDashboardSummary());
+  },[dispatch])
+
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
@@ -111,31 +120,31 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard 
             icon={<FaCalendarCheck size={18} />}
-            title="Today's Appointments"
-            value="156"
+            title="Total Appointments"
+            value={summary?.appointments}
             change={12}
-            secondaryText="24 pending confirmations"
+            secondaryText=""
           />
           <StatCard 
             icon={<FaUsers size={18} />}
-            title="Active Patients"
-            value="2,847"
+            title="Total Patients"
+            value={summary?.patients?.patients}
             change={8}
-            secondaryText="342 new this month"
+            secondaryText={`${summary?.patients?.activePatients} Active patients`}
           />
           <StatCard 
             icon={<FaUserMd size={18} />}
             title="Available Doctors"
-            value="24/28"
+            value={`${summary?.doctors?.availableDoctors}/${summary?.doctors?.doctors}`}
             change={-2}
-            secondaryText="4 on leave"
+            secondaryText={`${summary?.doctors?.doctors-summary?.doctors?.availableDoctors} on leave`}
           />
           <StatCard 
             icon={<FaMoneyBillWave size={18} />}
-            title="Monthly Revenue"
-            value="$127.5K"
+            title="Total Queries"
+            value={`${summary?.contacts?.contacts}`}
             change={22}
-            secondaryText="Target: $150K"
+            secondaryText={`Solved : ${summary?.contacts?.solvedQueries}`}
           />
         </div>
 
@@ -143,17 +152,17 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard 
             icon={<FaClipboardList size={16} />}
-            title="Pending Bills"
-            value="89"
+            title="Total Feedbacks"
+            value={`${summary?.feedbacks}`}
             change={-15}
-            secondaryText="$45.2K total"
+            secondaryText=""
           />
           <StatCard 
             icon={<FaUserClock size={16} />}
-            title="Waiting Patients"
-            value="12"
+            title="Total Subscribers"
+            value={summary?.newsletters}
             change={-8}
-            secondaryText="Avg wait: 15 min"
+            secondaryText=""
           />
           <StatCard 
             icon={<FaBed size={16} />}
@@ -254,7 +263,7 @@ const Dashboard = () => {
                 <Tooltip />
                 <Legend />
                 <Bar 
-                  dataKey="revenue" 
+                  dataKey="revenue"   
                   fill="#10b981" 
                   name="Revenue"
                   radius={[4, 4, 0, 0]}

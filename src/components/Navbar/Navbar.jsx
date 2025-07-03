@@ -112,6 +112,8 @@ const Navbar = () => {
             </span>
           </Link>
 
+
+
           <button className="md:hidden focus:outline-none" onClick={toggleMenu}>
             <svg
               className="w-6 h-6 text-black"
@@ -161,6 +163,14 @@ const Navbar = () => {
 >
   Book Appointment
 </Link>
+
+{/* <Link
+  to="/download/reports"
+  onClick={() => setMenuOpen(false)}
+  className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 text-sm text-center inline-block"
+>
+  Download Report
+</Link> */}
 
 </div>
 

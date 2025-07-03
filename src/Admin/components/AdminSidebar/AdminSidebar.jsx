@@ -197,8 +197,8 @@ const AdminSidebar = ({ isOpen, activeRoute, setActiveRoute }) => {
           />
           <SidebarItem
             icon={FaCog}
-            label="Settings"
-            to="/admin/settings"
+            label="Reports"
+            to="/admin/reports"
             activeRoute={activeRoute}
             setActiveRoute={setActiveRoute}
           />
@@ -282,7 +282,7 @@ const AdminSidebar = ({ isOpen, activeRoute, setActiveRoute }) => {
               <FaLandMineOn className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
             </button>
             <button 
-              onClick={() => navigate('/admin/settings')}
+              onClick={() => navigate('/admin/reports')}
               className="p-1 rounded-lg hover:bg-blue-50 hover:shadow-md transition-all duration-200 cursor-pointer group"
             >
               <FaCog className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />

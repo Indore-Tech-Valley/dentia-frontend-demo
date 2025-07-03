@@ -55,6 +55,25 @@ const Banner2 = () => {
   </span>
 </Link>
 
+<Link
+  to="/download/reports"
+  className="text-md mt-2 ml-0 md:ml-2 relative group text-white font-semibold px-6 py-3 rounded shadow overflow-hidden h-[48px] min-w-[180px] inline-flex items-center justify-center no-underline"
+  style={{ textDecoration: 'none' }}
+>
+  {/* Outer layer with border + top text */}
+  <span className="border border-white rounded-lg absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:border-transparent group-hover:bg-orange-500">
+    {/* Text that slides up AND fades out */}
+    <span className="transition-all duration-300 group-hover:-translate-y-full group-hover:opacity-0">
+      Download Report
+    </span>
+  </span>
+
+  {/* Second text fading + sliding in from below */}
+  <span className="rounded-lg absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 translate-y-full group-hover:translate-y-0 group-hover:opacity-100">
+    Download Report
+  </span>
+</Link>
+
 
            <a
   href="https://g.co/kgs/UNBZRpR" // Replace with actual Google reviews link

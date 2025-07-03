@@ -147,7 +147,7 @@ const Patients = () => {
       const resultAction = await dispatch(
         updatePatient({ id: currentPatient._id, data: payload })
       );
-      if (updatePatient.fulfilled(resultAction)) {
+      if (updatePatient.fulfilled.match(resultAction)) {
         setModalOpen(false);
         setForm({
           name: "",
@@ -171,7 +171,7 @@ const Patients = () => {
       }
     } else {
       const resultAction = await dispatch(createPatient(payload));
-      if (createPatient.fulfilled(resultAction)) {
+      if (createPatient.fulfilled.match(resultAction)) {
         setModalOpen(false);
         setForm({
           name: "",
@@ -186,9 +186,10 @@ const Patients = () => {
           status: "Stable",
           insurance: "No",
         });
+        openModal("success", resultAction?.payload?.message);
         dispatch(fetchPatientStats());
         dispatch(fetchPatients());
-        openModal("success", resultAction?.payload?.message);
+       
       } else {
         openModal("error", resultAction?.payload || "failed to create patient");
       }
@@ -438,7 +439,9 @@ const Patients = () => {
               <p className="text-gray-600 text-xs md:text-sm mb-4">
                 ID: {patient._id}
               </p>
-
+ <p className="text-gray-600 text-xs md:text-sm mb-4">
+                PID: {patient.patientCode || 'xxxx'}
+              </p>
               <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                 <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600">
                   <FaBirthdayCake className="text-indigo-500 text-xs md:text-sm" />

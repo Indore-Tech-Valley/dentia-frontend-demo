@@ -126,7 +126,13 @@ const Patients = () => {
   // Confirm delete
   const confirmDelete = async () => {
     try {
-     await dispatch(deletePatient(id));
+     await dispatch(deletePatient(deleteId))
+     .then((res)=>{
+      openModal("success",res?.payload?.message || "Patient deleted successfully");
+     })
+     .catch((err)=>{
+      openModal("error", res?.payload || "Error deleting patient");
+     })
        dispatch(fetchPatientStats())
        dispatch(fetchPatients())
       setShowConfirmModal(false);
@@ -194,7 +200,8 @@ const Patients = () => {
         openModal("error", resultAction?.payload || "failed to create patient");
       }
     }
-
+   dispatch(fetchPatientStats());
+        dispatch(fetchPatients());
     resetModal();
   };
 
@@ -267,8 +274,8 @@ const Patients = () => {
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={confirmDelete}
-        title="Confirm FAQ Deletion"
-        message="Are you sure you want to delete this FAQ? This action cannot be undone."
+        title="Confirm Patient Deletion"
+        message="Are you sure you want to delete this Patient? This action cannot be undone."
       />
 
       <div className="max-w-7xl mx-auto">

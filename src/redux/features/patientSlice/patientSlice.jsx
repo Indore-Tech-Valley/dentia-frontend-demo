@@ -1,6 +1,6 @@
 // redux/features/patientSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ADMIN_PATIENT_API } from '../../../utils/config';
+import { ADMIN_PATIENT_API,PATIENT_API } from '../../../utils/config';
 import { apiRequest } from '../../../utils/utils';
 
 const API_URL = ADMIN_PATIENT_API;
@@ -20,7 +20,7 @@ export const fetchPatientByCode = createAsyncThunk(
   'patients/fetchByCode',
   async (code, thunkAPI) => {
     try {
-      const res = await apiRequest('GET', `http://localhost:8000/api/patients/${code}`, null, false);
+      const res = await apiRequest('GET', `${PATIENT_API}/${code}`, null, false);
       return res; // assuming response is { success: true, data: {...} }
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -48,8 +48,8 @@ export const updatePatient = createAsyncThunk('patients/update', async ({ id, da
 
 export const deletePatient = createAsyncThunk('patients/delete', async (id, thunkAPI) => {
   try {
-    await apiRequest('DELETE', `${API_URL}/${id}`,null,true);
-    return id;
+  const res =  await apiRequest('DELETE', `${API_URL}/${id}`,null,true);
+    return res;
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message);
   }

@@ -1,4 +1,5 @@
-export const BASE_URL="http://localhost:8000/api";
+// export const BASE_URL="http://localhost:8000/api";
+export const BASE_URL="http://192.168.1.113:8000/api";
 
 // API Endpoints : Appointments
 export const APPOINTMENT_API_URL = `${BASE_URL}/appointments`;
@@ -34,9 +35,12 @@ export const WEBSITE_API = `${BASE_URL}/website-details`;
 export const ADMIN_WEBSITE_API = `${BASE_URL}/admin/website-details`;
 // API Endpoints : Patient 
 // export const PATIENT_API = `${BASE_URL}/patients`;
+export const PATIENT_API = `${BASE_URL}/patients`;
 export const ADMIN_PATIENT_API = `${BASE_URL}/admin/patients`;
 // API Endpoints : reports
 export const REPORT_API = `${BASE_URL}/reports`;
 export const ADMIN_REPORT_API = `${BASE_URL}/admin/reports`;
 // API Endpoints : dashboard
 export const ADMIN_DASHBOARD_SUMMARY_API = `${BASE_URL}/admin/dashboard/summary`;
+// API Endpoints : notification
+export const NOTIFICATION_API = `${BASE_URL}/notify`;

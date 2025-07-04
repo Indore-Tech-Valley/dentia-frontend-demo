@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import {NOTIFICATION_API} from '../../../utils/config'
 
 export const fetchNotifications = createAsyncThunk(
   'notification/fetch',
   async () => {
-    const res = await axios.get('http://localhost:8000/api/notify');
+    const res = await axios.get(NOTIFICATION_API);
     console.log(res)
     return res;
   }
@@ -13,7 +14,7 @@ export const fetchNotifications = createAsyncThunk(
 export const markAllSeen = createAsyncThunk(
   'notification/markAllSeen',
   async () => {
-    const res = await axios.put('http://localhost:8000/api/notify/mark-all-seen');
+    const res = await axios.put(`${NOTIFICATION_API}/mark-all-seen`);
     return res.data;
   }
 );

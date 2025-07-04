@@ -169,6 +169,7 @@ const Appointments = () => {
           resultAction.payload || "Failed to update appointment"
         );
       }
+       dispatch(fetchAppointments());
     } else {
       try {
         const resultAction = await dispatch(createAppointment(form));
@@ -177,7 +178,7 @@ const Appointments = () => {
           resetModal();
           openModal(
             "success",
-            resultAction.payload.message || "Appointment booked successfully!"
+            resultAction?.payload?.message || "Appointment booked successfully!"
           );
           setFormData({
             service: "",
@@ -188,15 +189,16 @@ const Appointments = () => {
             phone: "",
             message: "",
           });
-          dispatch(fetchAppointments());
+         
         } else {
           // console.log(resultAction.payload)
           // resetModal();
           openModal(
             "error",
-            resultAction.payload || "Failed to book appointment"
+            resultAction?.payload || "Failed to book appointment"
           );
         }
+         dispatch(fetchAppointments());
       } catch (err) {
         // console.error(err);
         // resetModal();
